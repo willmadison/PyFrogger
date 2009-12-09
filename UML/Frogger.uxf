@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><umlet_diagram><help_text/><zoom_level>10</zoom_level><element><type>com.umlet.element.base.Class</type><coordinates><x>30</x><y>20</y><w>260</w><h>190</h></coordinates><panel_attributes>IniParser
+--
++objConfig: ConfigParser
+
+--
++get(section:string, key:string ): void
+
+
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>460</x><y>60</y><w>100</w><h>30</h></coordinates><panel_attributes>GameEngine</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>260</x><y>40</y><w>220</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..1
+r1=GameConfig</panel_attributes><additional_attributes>30;30;200;30</additional_attributes></element></umlet_diagram>
