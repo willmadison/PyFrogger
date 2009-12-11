@@ -51,6 +51,20 @@ class BaseEntity(object):
       @param eventFired:
     '''
     return
-    
-    
+  
+  @abc.abstractmethod
+  def draw(self):
+    '''
+      This is an abstract representation of the function
+      responsible for encapsulating how the entity
+      is display on the display surface
+    '''
+    return
         
+  def update(self):
+    '''
+      This representation of the function update is for 
+      determining how the entity will update itself on
+      the display surface
+    '''
+    return

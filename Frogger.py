@@ -10,7 +10,7 @@ if __name__ == "__main__":
   Frogger = GameEngine()
   Frogger.init()
   
-  #while Frogger.running === true:
-  #  Frogger.loop()
+  while Frogger.running == True:
+    Frogger.run()
 
   Frogger.quit()
