@@ -7,6 +7,8 @@ Created on Dec 9, 2009
 #Import the Abstract Base Class (abc) module.
 
 import abc
+import pygame
+import sys
 
 class EntityController(object):
   '''
@@ -41,7 +43,8 @@ class EntityController(object):
       This function will quit the application if a
       "Quit" event is fired.
     '''      
-    pass
+    pygame.quit()
+    sys.exit() 
     
   def pause(self):
     '''

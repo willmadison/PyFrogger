@@ -24,10 +24,10 @@ class FrogEntity(BaseEntity):
     self.surfGameDisplay = gameScreen
 
   def setController(self, myController):
-    return
+    self.myController = myController
 
   def respond(self, eventFired):
-    return
+    self.myController.respond(eventFired)
 
   def draw(self):
     pygame.draw.rect(self.Surface, (0, 255, 0), (0, 0, 5, 5))
@@ -55,23 +55,25 @@ class FrogEntity(BaseEntity):
 
 
 if __name__ == "__main__":
+  
+  from src.controllers.frogcontroller import FrogController
 
-  try:
-    from src.core.validationframework import ValidationFramework
+  from src.core.validationframework import ValidationFramework
+  
+  Validation = ValidationFramework()
 
-    Validation = ValidationFramework()
+  # Draw entities ... do stuff that needs to be rendered to the Main Display
+  entFrog = FrogEntity([25, 25])
+  frogControl = FrogController(entFrog)
+  entFrog.setController(frogControl)
+  entFrog.setGameScreen(Validation.Surface) 
+  entFrog.draw()
 
-    # Draw entities ... do stuff that needs to be rendered to the Main Display
-    entFrog = FrogEntity([25, 25])
-    entFrog.setGameScreen(Validation.Surface) 
-    entFrog.draw()
-
-    Validation.addToRunQueue(entFrog.update)
-    
-    while Validation.running == True:
+  Validation.addToRunQueue(entFrog.update)
+  
+  while Validation.running == True:
+    for event in Validation.getEvents():
       Validation.run()
+      entFrog.respond(event)    
 
-    Validation.quit()
-    
-  except StandardError as Error:
-    print Error
+  Validation.quit()

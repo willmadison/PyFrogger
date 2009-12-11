@@ -5,6 +5,9 @@ Created on Dec 9, 2009
 '''
 
 from entitycontroller import EntityController
+import pygame
+from pygame.locals import *
+import sys
 
 class FrogController(EntityController):
   '''
@@ -20,6 +23,14 @@ class FrogController(EntityController):
         
     self.controlledEntity = controlledEntity
     
+    self.dictKeyActionMap = {
+                             K_ESCAPE        : self.quit,
+                             pygame.K_UP     : self.moveUp,
+                             pygame.K_DOWN   : self.moveDown,
+                             pygame.K_LEFT   : self.moveLeft,
+                             pygame.K_RIGHT  : self.moveRight                    
+                            }
+    
   def setEntity(self, controlledEntity):
     '''
       This function assigns the given entity
@@ -28,7 +39,7 @@ class FrogController(EntityController):
       @param controlledEntity:
     '''
     
-    self.controlledEntity = controlledEntity
+    self.Entity = controlledEntity
     
   def respond(self, eventFired):
     '''
@@ -38,8 +49,28 @@ class FrogController(EntityController):
       to respond (or not)
       
       @param eventFired:
-    '''
-    pass
+    '''     
+    
+    # If this is a valid key event:
+    
+    if (eventFired.type == KEYDOWN and
+        eventFired.key in self.KeyActionMap):
+      
+      # Respond Accordingly
+      
+      self.KeyActionMap[eventFired.key]()        
+  
+  def moveUp(self):
+    self.move('UP')
+  
+  def moveDown(self):
+    self.move('DOWN')
+    
+  def moveLeft(self):
+    self.move('LEFT')
+    
+  def moveRight(self):
+    self.move('RIGHT')  
   
   def move(self, direction):
     '''
@@ -48,7 +79,39 @@ class FrogController(EntityController):
       
       @param direction:
     '''
-    pass
+    # Assume that the move will be successful.
+    
+    moveSuccessful = True
+      
+    dictDirectionMap = {
+                       'UP'   : -self.Entity.Dimensions['height'], # Move the entity up by its Height in Pixels
+                       'DOWN' :  self.Entity.Dimensions['height'], # Move the entity down by its Height in Pixels
+                       'LEFT' : -self.Entity.Dimensions['width'],  # Move the entity left by its Width in Pixels
+                       'RIGHT':  self.Entity.Dimensions['width']   # Move the entity right by its Width in Pixels
+                       }
+    
+    # If the user intends to move vertically update the y coordinate accordingly.
+    
+    if direction in ['UP', 'DOWN']:
+      self.Entity.Coordinates['y'] += dictDirectionMap[direction]
+      
+    # Otherwise the user intends to move horizontally, so update the x coordinate accordingly.
+      
+    else:
+      self.Entity.Coordinates['x'] += dictDirectionMap[direction]
+          
+    return moveSuccessful
+      
+  @property
+  def Entity(self):
+    return self.controlledEntity
+  
+  @property
+  def KeyActionMap(self):
+    return self.dictKeyActionMap
+    
+    
+    
   
   
       

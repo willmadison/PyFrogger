@@ -28,10 +28,15 @@ class ValidationFramework(object):
       runMethod()
 
     self.engDisplay.updateDisplay()
+    
+  def getEvents(self):
+    '''
+      This function captures all of the pygame events, for later use.
+    '''      
+    return pygame.event.get()
 
   def quit(self):
     pygame.quit()
-
 
   @property
   def RunQueue(self):
