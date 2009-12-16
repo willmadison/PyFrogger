@@ -27,8 +27,8 @@ class DisplayEngine(object):
     except StandardError as Error:
       print Error
 
-  def updateDisplay(self):  
-    pygame.display.update()
+  def updateDisplay(self):   
+    pygame.display.flip()
     
   @property
   def Surface(self):

@@ -57,7 +57,7 @@ class BaseEntity(object):
     '''
       This is an abstract representation of the function
       responsible for encapsulating how the entity
-      is display on the display surface
+      is displayed on the display surface
     '''
     return
         

@@ -4,10 +4,9 @@ Created on Dec 9, 2009
 @author: William Madison
 '''
 
-from entitycontroller import EntityController
+from src.controllers.entitycontroller import EntityController
 import pygame
-from pygame.locals import *
-import sys
+from pygame.locals import * #@UnusedWildImport
 
 class FrogController(EntityController):
   '''
@@ -58,7 +57,12 @@ class FrogController(EntityController):
       
       # Respond Accordingly
       
-      self.KeyActionMap[eventFired.key]()        
+      self.KeyActionMap[eventFired.key]() 
+      
+    # Otherwise if and only if this is a quit event, quit the application.
+    
+    elif eventFired.type == QUIT:
+      self.quit()
   
   def moveUp(self):
     self.move('UP')
