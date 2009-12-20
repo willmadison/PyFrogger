@@ -22,14 +22,14 @@ class CarEntity(BaseEntity):
     self.setColorKey()
     self.draw()
 
-
-  def setGameScreen(self, gameScreen):
-    self.surfGameDisplay = gameScreen
+  def setDisplayEngine(self, engDisplay):
+    self.engDisplay = engDisplay
 
   def setController(self, myController):
     self.myController = myController
 
   def respond(self, eventFired):
+    """ Event Handler """
     self.myController.respond(eventFired)
 
   def setColorKey(self, color=(255,255,255)):
@@ -59,9 +59,9 @@ class CarEntity(BaseEntity):
     # manually every time
     self.arrFacingDirectionImages = {
       'DOWN'   : pygame.transform.rotate(self.Surface,  -90),
-      'UP' : pygame.transform.rotate(self.Surface,   90),
-      'LEFT': pygame.transform.rotate(self.Surface, -180),
-      'RIGHT' : pygame.transform.rotate(self.Surface,    0)
+      'UP'     : pygame.transform.rotate(self.Surface,   90),
+      'LEFT'   : pygame.transform.rotate(self.Surface, -180),
+      'RIGHT'  : pygame.transform.rotate(self.Surface,    0)
     }
 
   def update(self):
@@ -81,8 +81,12 @@ class CarEntity(BaseEntity):
     return self.surfEntity
 
   @property
+  def DisplayEngine(self):
+    return self.engDisplay
+
+  @property
   def GameSurface(self):
-    return self.surfGameDisplay
+    return self.engDisplay.Surface
 
 if __name__ == "__main__":
   
