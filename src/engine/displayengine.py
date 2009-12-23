@@ -13,6 +13,12 @@ class DisplayEngine(object):
       # Create the display layers that we will need
       self.DisplayLayers = pygame.sprite.LayeredDirty()
 
+      # Create a list to hold all of the entities so we can execute their respond methods
+      self.DisplayEntities = []
+
+      # Create a list to hold all user controlled entities
+      self.ControlledEntities = []
+
       # We are not using flags right now so just default flags to 0
       if len(flags) == 0:
         displayFlags = 0
@@ -30,10 +36,22 @@ class DisplayEngine(object):
     except StandardError as Error:
       print Error
 
-  def addLayer(self, listLayer):
-    """ Add a layer to the rendering engine """
-    groupLayer = pygame.sprite.Group(listLayer)
+  def addUserControlledLayer(self, entLayer):
+    groupLayer = pygame.sprite.Group(entLayer)
     self.DisplayLayers.add(groupLayer)
+    self.ControlledEntities.append(entLayer)
+      
+
+  def addLayer(self, entLayer):
+    """ Add a layer to the rendering engine """
+    if isinstance(entLayer, list):
+      for entity in entLayer:
+        groupLayer = pygame.sprite.Group(entity)
+        self.DisplayLayers.add(groupLayer)
+    else:
+      groupLayer = pygame.sprite.Group(entLayer)
+      self.DisplayLayers.add(groupLayer)
+      self.DisplayEntities.append(entLayer)
 
   def updateDisplay(self):   
     """
@@ -42,8 +60,22 @@ class DisplayEngine(object):
       Then we update only the updated layers, not the entire screen
     """
     self.DisplayLayers.update()
-    listDisplayRectangles = self.DisplayLayers.draw(self.Surface)
-    pygame.display.update(listDisplayRectangles)
+
+    self.respond()
+
+    self.animate()
+
+    #listDisplayRectangles = self.DisplayLayers.draw(self.Surface)
+    pygame.display.update()
+
+  def respond(self):
+    for entity in self.ControlledEntities:
+      for event in pygame.event.get():
+        entity.respond(event)
+
+  def animate(self):
+    for entity in self.DisplayEntities:
+      entity.animate()
     
   @property
   def Surface(self):

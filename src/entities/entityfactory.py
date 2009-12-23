@@ -81,7 +81,7 @@ class EntityFactory(object):
     POINT_UPPERSWLOCATION = [18, 170]
     entUpperSideWalk = self.__createSidewalk(POINT_UPPERSWLOCATION)
     
-    POINT_LOWERSWLOCATION = [18, 350]
+    POINT_LOWERSWLOCATION = [18, 345]
     entLowerSideWalk = self.__createSidewalk(POINT_LOWERSWLOCATION)
     
     # Add each of the static background entities to the list of background entities
@@ -109,7 +109,7 @@ class EntityFactory(object):
 
   def __createStreet(self):
     STREET_LOCATION = [18, 150]
-    STREET_DIMENSIONS = [464, 225]
+    STREET_DIMENSIONS = [464, 220]
     entStreet = StaticEntity(STREET_LOCATION, STREET_DIMENSIONS, COLOR_BLACK)
     entStreet.setGameScreen(self.Surface)
     return entStreet

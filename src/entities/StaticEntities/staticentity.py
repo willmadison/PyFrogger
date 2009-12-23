@@ -12,8 +12,10 @@ class StaticEntity(BaseEntity):
     classdocs
   '''
 
-
   def __init__(self, coordinates=[0,0], dimensions = [500, 125], color = (0, 0, 255)):
+
+    # Init the dirty sprite pygame object
+    pygame.sprite.DirtySprite.__init__(self)
 
     # Convert to a recognizable system of notation
     self.dimensions = {
@@ -91,3 +93,18 @@ class StaticEntity(BaseEntity):
   @property
   def Surface(self):
     return self.surfEntity      
+
+  @property
+  def image(self):
+    """
+      These are used by pygame and are necessary in order for the parent object (DirtySprite)
+    """
+    return self.Surface
+
+  @property
+  def rect(self):
+    """
+      These are used by pygame and are necessary in order for the parent object (DirtySprite)
+    """
+    return self.Surface.get_rect()
+

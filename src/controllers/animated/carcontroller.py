@@ -3,12 +3,12 @@ Created on Dec 9, 2009
 
 @author: William Madison
 '''
-
 from src.controllers.entitycontroller import EntityController
 import pygame
 from pygame.locals import * #@UnusedWildImport
+import random
 
-class FrogController(EntityController):
+class CarController(EntityController):
   '''
     This is the concrete implementation of 
     a Frog Controller, which extends the 
@@ -17,17 +17,11 @@ class FrogController(EntityController):
 
   def __init__(self, controlledEntity):
     '''
-      Initializes the Frog Controller.
+      Initializes the Car Controller.
     '''
     self.controlledEntity = controlledEntity
     
-    self.dictKeyActionMap = {
-                             K_ESCAPE        : self.quit,
-                             pygame.K_UP     : self.moveUp,
-                             pygame.K_DOWN   : self.moveDown,
-                             pygame.K_LEFT   : self.moveLeft,
-                             pygame.K_RIGHT  : self.moveRight                    
-                            }
+    self.dictKeyActionMap = {}
     
   def setEntity(self, controlledEntity):
     '''
@@ -48,32 +42,17 @@ class FrogController(EntityController):
       
       @param eventFired:
     '''     
-    
-    # If this is a valid key event:
-    
-    if (eventFired.type == KEYDOWN and
-        eventFired.key in self.KeyActionMap):
+    return None 
       
-      # Respond Accordingly
+  def animate(self):
+    # The entity has migrated off the x axis
+    if self.Entity.Coordinates['x'] >= 450:
+      self.Entity.Coordinates['x'] = 0 # todo: Set this to the screen width
+      self.Entity.speed = random.uniform(2.0, 7.0)
+
+    self.Entity.Coordinates['x'] += self.Entity.speed
+    print self.Entity.Coordinates
       
-      self.KeyActionMap[eventFired.key]() 
-      
-    # Otherwise if and only if this is a quit event, quit the application.
-    
-    elif eventFired.type == QUIT:
-      self.quit()
-  
-  def moveUp(self):
-    self.move('UP')
-  
-  def moveDown(self):
-    self.move('DOWN')
-    
-  def moveLeft(self):
-    self.move('LEFT')
-    
-  def moveRight(self):
-    self.move('RIGHT')  
   
   def move(self, direction):
     '''

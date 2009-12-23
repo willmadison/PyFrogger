@@ -3,8 +3,14 @@ import pygame
 
 class CarEntity(BaseEntity):
 
-  def __init__(self, coordinates=[0,0]):
+  def __init__(self, coordinates=[0,0], speed=0):
+    
+    # Init the dirty sprite pygame object
+    pygame.sprite.DirtySprite.__init__(self)
 
+    # Set the entities speed in pps
+    self.speed = speed
+     
     # Convert to a recognizable system of notation
     self.dimensions = {
       'width'   : 40,
@@ -22,7 +28,7 @@ class CarEntity(BaseEntity):
     self.setColorKey()
     self.draw()
 
-  def setDisplayEngine(self, engDisplay):
+  def setGameScreen(self, engDisplay):
     self.engDisplay = engDisplay
 
   def setController(self, myController):
@@ -30,7 +36,11 @@ class CarEntity(BaseEntity):
 
   def respond(self, eventFired):
     """ Event Handler """
-    self.myController.respond(eventFired)
+    return None
+
+  def animate(self):
+    """ Animation Handler """
+    return self.myController.animate()
 
   def setColorKey(self, color=(255,255,255)):
     """ Create a color key to make transparent """
@@ -59,9 +69,9 @@ class CarEntity(BaseEntity):
     # manually every time
     self.arrFacingDirectionImages = {
       'DOWN'   : pygame.transform.rotate(self.Surface,  -90),
-      'UP'     : pygame.transform.rotate(self.Surface,   90),
-      'LEFT'   : pygame.transform.rotate(self.Surface, -180),
-      'RIGHT'  : pygame.transform.rotate(self.Surface,    0)
+      'UP' : pygame.transform.rotate(self.Surface,   90),
+      'LEFT': pygame.transform.rotate(self.Surface, -180),
+      'RIGHT' : pygame.transform.rotate(self.Surface,    0)
     }
 
   def update(self):
@@ -87,6 +97,20 @@ class CarEntity(BaseEntity):
   @property
   def GameSurface(self):
     return self.engDisplay.Surface
+
+  @property
+  def image(self):
+    """
+      These are used by pygame and are necessary in order for the parent object (DirtySprite)
+    """
+    return self.Surface
+
+  @property
+  def rect(self):
+    """
+      These are used by pygame and are necessary in order for the parent object (DirtySprite)
+    """
+    return self.Surface.get_rect()
 
 if __name__ == "__main__":
   

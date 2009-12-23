@@ -4,6 +4,7 @@ import pygame
 class FrogEntity(BaseEntity):
 
   def __init__(self, coordinates=[0,0]):
+    pygame.sprite.DirtySprite.__init__(self)
 
     # Convert to a recognizable system of notation
     self.dimensions = {
@@ -57,7 +58,7 @@ class FrogEntity(BaseEntity):
 if __name__ == "__main__":
   
   from src.core.validationframework         import ValidationFramework  
-  from entities.entityfactory               import EntityFactory
+  from src.entities.entityfactory               import EntityFactory
   
   Validation = ValidationFramework()
   

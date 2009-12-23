@@ -7,8 +7,9 @@ Created on Dec 9, 2009
 #Import the Abstract Base Class (abc) module.
 
 import abc
+import pygame
 
-class BaseEntity(object):
+class BaseEntity(pygame.sprite.DirtySprite):
   '''
     This class is an abstract representation
     of our Entity construct. It will house
