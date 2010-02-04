@@ -1,5 +1,6 @@
 from src.core.iniparser import IniParser
 from src.engine.displayengine import DisplayEngine
+from src.engine.collisionengine import CollisionEngine
 
 from src.entities.entityfactory import EntityFactory
 from src.controllers.animated.carcontroller import CarController
@@ -26,8 +27,11 @@ class GameEngine(object):
 
     listStaticBackgroundEntities = defaultEntityFactory.buildBackground()
 
+    self.engCollision = CollisionEngine()
+
     entFrog = defaultEntityFactory.buildFrog()
     entFrog.draw()
+
 
     # Create the Animated Cars
     entCar = CarEntity([20, 300], 4.2)
@@ -45,12 +49,22 @@ class GameEngine(object):
     contCarAnimation = CarController(entCar3)
     entCar3.setController(contCarAnimation)
 
+    # Anything that can collide with the frog should be appended here
+    listCollisionEntities = [entCar, entCar2, entCar3]
+
     # Add a Car Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)
     self.DisplayEngine.addLayer(entCar) 
     self.DisplayEngine.addLayer(entCar2) 
     self.DisplayEngine.addLayer(entCar3) 
     self.DisplayEngine.addUserControlledLayer(entFrog) 
+
+    # Adding these entities into the collision engine will let the engine monitor
+    # their position and on the action of a rectangle collision, the controlled
+    # entity will be handled based on it's collision based methods
+    self.CollisionEngine.setControlledEntity(entFrog)
+    for collisionEntity in listCollisionEntities:
+      self.CollisionEngine.addCollisionEntity(collisionEntity)
 
     # This variable keeps the run active
     self.running = True
@@ -59,6 +73,13 @@ class GameEngine(object):
     """
       Constantly render updates to the surface
     """
+    # if we find a collision then update the coordinates of the controlled entity
+    # before it gets drawn to the display
+    collisionFound = self.CollisionEngine.checkForCollision()
+    if collisionFound != False:
+      print "Collision Detected"
+      print collisionFound
+
     self.engDisplay.updateDisplay()
     
   def quit(self):
@@ -67,6 +88,10 @@ class GameEngine(object):
   @property
   def DisplayEngine(self):
     return self.engDisplay
+  
+  @property
+  def CollisionEngine(self):
+    return self.engCollision
 
 
 

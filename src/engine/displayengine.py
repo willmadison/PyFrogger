@@ -65,7 +65,6 @@ class DisplayEngine(object):
 
     self.animate()
 
-    #listDisplayRectangles = self.DisplayLayers.draw(self.Surface)
     pygame.display.update()
 
   def respond(self):
