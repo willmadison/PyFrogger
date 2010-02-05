@@ -51,7 +51,6 @@ class CarController(EntityController):
       self.Entity.speed = random.uniform(2.0, 7.0)
 
     self.Entity.Coordinates['x'] += self.Entity.speed
-    print self.Entity.Coordinates
       
   
   def move(self, direction):

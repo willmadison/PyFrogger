@@ -33,6 +33,7 @@ class DisplayEngine(object):
         intDepth
       )
     
+      self.clock = pygame.time.Clock()
     except StandardError as Error:
       print Error
 
@@ -66,6 +67,8 @@ class DisplayEngine(object):
     self.animate()
 
     pygame.display.update()
+
+    self.clock.tick(80)
 
   def respond(self):
     for entity in self.ControlledEntities:

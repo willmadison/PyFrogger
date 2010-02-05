@@ -14,8 +14,8 @@ class CollisionEngine(object):
    
   def checkForCollision(self):
     listCollision = pygame.sprite.spritecollide(self.controlledEntity, self.collisionEntities, False)
-    print self.controlledEntity.Surface.get_rect()
     
     if listCollision == []:
       return False
     return listCollision
+

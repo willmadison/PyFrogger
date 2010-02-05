@@ -78,7 +78,9 @@ class GameEngine(object):
     collisionFound = self.CollisionEngine.checkForCollision()
     if collisionFound != False:
       print "Collision Detected"
-      print collisionFound
+      # Reset the position of the frog
+      self.DisplayEngine.ControlledEntities[0].coordinates['x'] = self.DisplayEngine.ControlledEntities[0].startingCoordinates['x']
+      self.DisplayEngine.ControlledEntities[0].coordinates['y'] = self.DisplayEngine.ControlledEntities[0].startingCoordinates['y']
 
     self.engDisplay.updateDisplay()
     

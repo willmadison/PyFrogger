@@ -18,11 +18,14 @@ class FrogEntity(BaseEntity):
       'y' : coordinates[1]
     }
 
+    self.startingCoordinates = {
+      'x' : coordinates[0],
+      'y' : coordinates[1]
+    }
+
     # Define this entities surface
     self.surfEntity = pygame.Surface((self.Dimensions['width'], self.Dimensions['height']))
-
-    self.surfCollide = pygame.Surface((self.dimensions['width'], self.dimensions['height']))
-    self.rectCollide = self.surfCollide.get_rect(left=self.coordinates['x'], top=self.coordinates['y'])
+    self.rect = self.surfEntity.get_rect(left=self.coordinates['x'], top=self.coordinates['y'])
 
   def setGameScreen(self, gameScreen):
     self.surfGameDisplay = gameScreen
@@ -39,6 +42,9 @@ class FrogEntity(BaseEntity):
     pygame.draw.rect(self.Surface, (100, 146, 40), (6, 0, 5, 5))
 
   def update(self):
+    self.rect.move_ip(self.Coordinates['x'], self.Coordinates['y'])
+    self.rect.top = self.Coordinates['y']
+    self.rect.left = self.Coordinates['x']
     self.GameSurface.blit(self.Surface, (self.Coordinates['x'], self.Coordinates['y']))
 
   @property
@@ -52,10 +58,6 @@ class FrogEntity(BaseEntity):
   @property
   def Surface(self):
     return self.surfEntity
-
-  @property
-  def rect(self):
-    return self.surfEntity.get_rect()
 
   @property
   def CollideSurface(self):

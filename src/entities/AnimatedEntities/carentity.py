@@ -25,6 +25,7 @@ class CarEntity(BaseEntity):
 
     # Define this entities surface
     self.surfEntity = pygame.Surface((self.Dimensions['width'], self.Dimensions['height'])).convert()
+    self.rect = self.surfEntity.get_rect(left=self.coordinates['x'], top=self.coordinates['y'])
     self.setColorKey()
     self.draw()
 
@@ -76,6 +77,9 @@ class CarEntity(BaseEntity):
 
   def update(self):
     """ Update the coordinates for this entity """
+    self.rect.move_ip(self.Coordinates['x'], self.Coordinates['y'])
+    self.rect.top = self.Coordinates['y']
+    self.rect.left = self.Coordinates['x']
     self.GameSurface.blit(self.Surface, (self.Coordinates['x'], self.Coordinates['y']))
 
   @property
@@ -104,13 +108,6 @@ class CarEntity(BaseEntity):
       These are used by pygame and are necessary in order for the parent object (DirtySprite)
     """
     return self.Surface
-
-  @property
-  def rect(self):
-    """
-      These are used by pygame and are necessary in order for the parent object (DirtySprite)
-    """
-    return self.Surface.get_rect()
 
 if __name__ == "__main__":
   
