@@ -7,6 +7,8 @@ from src.controllers.animated.carcontroller import CarController
 
 from src.entities.AnimatedEntities.carentity import CarEntity
 
+import sys
+
 class GameEngine(object):
 
   def __init__(self):
@@ -28,24 +30,24 @@ class GameEngine(object):
     listStaticBackgroundEntities = defaultEntityFactory.buildBackground()
 
     self.engCollision = CollisionEngine()
+    self.entLifeCounter = defaultEntityFactory.buildLifeCounter()
 
     entFrog = defaultEntityFactory.buildFrog()
     entFrog.draw()
 
-
     # Create the Animated Cars
     entCar = CarEntity([20, 300], 4.2)
-    entCar.setGameScreen(self.DisplayEngine) 
+    entCar.setGameScreen(self.DisplayEngine)
     contCarAnimation = CarController(entCar)
     entCar.setController(contCarAnimation)
 
     entCar2 = CarEntity([20, 250], 5)
-    entCar2.setGameScreen(self.DisplayEngine) 
+    entCar2.setGameScreen(self.DisplayEngine)
     contCarAnimation = CarController(entCar2)
     entCar2.setController(contCarAnimation)
 
     entCar3 = CarEntity([20, 210], 2)
-    entCar3.setGameScreen(self.DisplayEngine) 
+    entCar3.setGameScreen(self.DisplayEngine)
     contCarAnimation = CarController(entCar3)
     entCar3.setController(contCarAnimation)
 
@@ -54,10 +56,10 @@ class GameEngine(object):
 
     # Add a Car Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)
-    self.DisplayEngine.addLayer(entCar) 
-    self.DisplayEngine.addLayer(entCar2) 
-    self.DisplayEngine.addLayer(entCar3) 
-    self.DisplayEngine.addUserControlledLayer(entFrog) 
+    self.DisplayEngine.addLayer(entCar)
+    self.DisplayEngine.addLayer(entCar2)
+    self.DisplayEngine.addLayer(entCar3)
+    self.DisplayEngine.addUserControlledLayer(entFrog)
 
     # Adding these entities into the collision engine will let the engine monitor
     # their position and on the action of a rectangle collision, the controlled
@@ -77,10 +79,14 @@ class GameEngine(object):
     # before it gets drawn to the display
     collisionFound = self.CollisionEngine.checkForCollision()
     if collisionFound != False:
-      print "Collision Detected"
       # Reset the position of the frog
-      self.DisplayEngine.ControlledEntities[0].coordinates['x'] = self.DisplayEngine.ControlledEntities[0].startingCoordinates['x']
-      self.DisplayEngine.ControlledEntities[0].coordinates['y'] = self.DisplayEngine.ControlledEntities[0].startingCoordinates['y']
+      self.DisplayEngine.Frog.coordinates['x'] = self.DisplayEngine.Frog.startingCoordinates['x']
+      self.DisplayEngine.Frog.coordinates['y'] = self.DisplayEngine.Frog.startingCoordinates['y']
+      self.entLifeCounter.remove()
+      print "Current Life Count: " + str(self.entLifeCounter.Lives)
+      if self.entLifeCounter.Lives == 0:
+        print "GAME OVER!"
+        sys.exit()
 
     self.engDisplay.updateDisplay()
     

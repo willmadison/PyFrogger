@@ -3,7 +3,7 @@ import sys, pygame
 class DisplayEngine(object):
 
   def __init__(self, resolution, depth=0, **flags):
-    """ 
+    """
       Create the main display surface
     """
 
@@ -22,7 +22,7 @@ class DisplayEngine(object):
       # We are not using flags right now so just default flags to 0
       if len(flags) == 0:
         displayFlags = 0
-      
+
       # Set the depth, should automatically default to current desktop
       intDepth = depth
 
@@ -32,7 +32,7 @@ class DisplayEngine(object):
         displayFlags,
         intDepth
       )
-    
+
       self.clock = pygame.time.Clock()
     except StandardError as Error:
       print Error
@@ -41,7 +41,7 @@ class DisplayEngine(object):
     groupLayer = pygame.sprite.Group(entLayer)
     self.DisplayLayers.add(groupLayer)
     self.ControlledEntities.append(entLayer)
-      
+
 
   def addLayer(self, entLayer):
     """ Add a layer to the rendering engine """
@@ -54,7 +54,7 @@ class DisplayEngine(object):
       self.DisplayLayers.add(groupLayer)
       self.DisplayEntities.append(entLayer)
 
-  def updateDisplay(self):   
+  def updateDisplay(self):
     """
       This method is responsible for constantly updating the main display surface.
       It also draws anything in the DisplayLayers layer to the screen in the order in which they were added
@@ -78,7 +78,11 @@ class DisplayEngine(object):
   def animate(self):
     for entity in self.DisplayEntities:
       entity.animate()
-    
+
+  @property
+  def Frog(self):
+    return self.ControlledEntities[0]
+
   @property
   def Surface(self):
     return self.displaySurface

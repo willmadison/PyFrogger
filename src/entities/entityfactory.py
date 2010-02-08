@@ -4,10 +4,11 @@ Created on Dec 21, 2009
 @author: William Madison
 '''
 
-from src.entities.ControlledEntities.frogentity import FrogEntity
-from src.entities.StaticEntities.staticentity   import StaticEntity
-from src.controllers.frogcontroller             import FrogController
-from src.core.colors                            import * #@UnusedWildImport
+from src.entities.ControlledEntities.frogentity  import FrogEntity
+from src.entities.GameControlEntities.lifeentity import LifeEntity
+from src.entities.StaticEntities.staticentity    import StaticEntity
+from src.controllers.frogcontroller              import FrogController
+from src.core.colors                             import * #@UnusedWildImport
 
 
 class EntityFactory(object):
@@ -19,6 +20,12 @@ class EntityFactory(object):
     
     self.displayEngine = myDisplayEngine
     self.surfGameDisplay = myDisplayEngine.Surface
+
+  def buildLifeCounter(self):
+
+    entLife = LifeEntity()
+
+    return entLife
  
   def buildFrog(self):
     '''
@@ -41,7 +48,7 @@ class EntityFactory(object):
     
     # Return the newly created frog.
     
-    return entFrog 
+    return entFrog
   
   def buildBackground(self):
     '''
