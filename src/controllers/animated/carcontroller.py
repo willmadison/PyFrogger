@@ -73,7 +73,7 @@ class CarController(EntityController):
     
     # If the user intends to move vertically update the y coordinate accordingly.
     
-   # self.Entity.surfEntity = self.Entity.arrFacingDirectionImages[direction]
+    # self.Entity.surfEntity = self.Entity.arrFacingDirectionImages[direction]
   
     if direction in ['UP', 'DOWN']:
       self.Entity.Coordinates['y'] += dictDirectionMap[direction]

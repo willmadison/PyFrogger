@@ -1,11 +1,13 @@
-from src.core.iniparser import IniParser
-from src.engine.displayengine import DisplayEngine
-from src.engine.collisionengine import CollisionEngine
+from src.core.iniparser                      import IniParser
+from src.engine.displayengine                import DisplayEngine
+from src.engine.collisionengine              import CollisionEngine
+from src.entities.AnimatedEntities.logentity import LogEntity
 
-from src.entities.entityfactory import EntityFactory
-from src.controllers.animated.carcontroller import CarController
+from src.entities.entityfactory              import EntityFactory
+from src.controllers.animated.carcontroller  import CarController
 
 from src.entities.AnimatedEntities.carentity import CarEntity
+from src.controllers.animated.logcontroller import LogController
 
 import sys
 
@@ -50,7 +52,32 @@ class GameEngine(object):
     entCar3.setGameScreen(self.DisplayEngine)
     contCarAnimation = CarController(entCar3)
     entCar3.setController(contCarAnimation)
-
+    
+    # Create an animated Log
+    listLastLogCoordinates = [1,70]
+    intLastLogSpeed        = 2
+    
+    entLastLog = LogEntity(listLastLogCoordinates, intLastLogSpeed, LogEntity.LEFT_TO_RIGHT)
+    entLastLog.setGameScreen(self.DisplayEngine)
+    contLastLogAnimation = LogController(entLastLog)
+    entLastLog.setController(contLastLogAnimation)
+    
+    listSecondLogCoordinates = [1,100]
+    intSecondLogSpeed        = 2
+    
+    entSecondLog = LogEntity(listSecondLogCoordinates, intSecondLogSpeed, LogEntity.RIGHT_TO_LEFT)
+    entSecondLog.setGameScreen(self.DisplayEngine)
+    contSecondLogAnimation = LogController(entSecondLog)
+    entSecondLog.setController(contSecondLogAnimation)
+    
+    listFirstLogCoordinates = [1,130]
+    intFirstLogSpeed        = 2
+    
+    entFirstLog = LogEntity(listFirstLogCoordinates, intFirstLogSpeed, LogEntity.LEFT_TO_RIGHT)
+    entFirstLog.setGameScreen(self.DisplayEngine)
+    contFirstLogAnimation = LogController(entFirstLog)
+    entFirstLog.setController(contFirstLogAnimation)
+    
     # Anything that can collide with the frog should be appended here
     listCollisionEntities = [entCar, entCar2, entCar3]
 
@@ -59,6 +86,11 @@ class GameEngine(object):
     self.DisplayEngine.addLayer(entCar)
     self.DisplayEngine.addLayer(entCar2)
     self.DisplayEngine.addLayer(entCar3)
+    
+    # Add the logs to the Game Layer
+    self.DisplayEngine.addLayer(entFirstLog)
+    self.DisplayEngine.addLayer(entSecondLog)
+    self.DisplayEngine.addLayer(entLastLog)
     self.DisplayEngine.addUserControlledLayer(entFrog)
 
     # Adding these entities into the collision engine will let the engine monitor
