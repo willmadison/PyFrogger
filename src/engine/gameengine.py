@@ -7,7 +7,7 @@ from src.entities.entityfactory              import EntityFactory
 from src.controllers.animated.carcontroller  import CarController
 
 from src.entities.AnimatedEntities.carentity import CarEntity
-from src.controllers.animated.logcontroller import LogController
+from src.controllers.animated.logcontroller  import LogController
 
 import sys
 
@@ -38,20 +38,30 @@ class GameEngine(object):
     entFrog.draw()
 
     # Create the Animated Cars
-    entCar = CarEntity([20, 300], 4.2)
+    entCar = CarEntity([20, 189], 4.2)
     entCar.setGameScreen(self.DisplayEngine)
     contCarAnimation = CarController(entCar)
     entCar.setController(contCarAnimation)
 
-    entCar2 = CarEntity([20, 250], 5)
+    entCar2 = CarEntity([20, 219], 5)
     entCar2.setGameScreen(self.DisplayEngine)
     contCarAnimation = CarController(entCar2)
     entCar2.setController(contCarAnimation)
 
-    entCar3 = CarEntity([20, 210], 2)
+    entCar3 = CarEntity([20, 249], 2)
     entCar3.setGameScreen(self.DisplayEngine)
     contCarAnimation = CarController(entCar3)
     entCar3.setController(contCarAnimation)
+
+    entCar4 = CarEntity([20, 279], 1)
+    entCar4.setGameScreen(self.DisplayEngine)
+    contCarAnimation = CarController(entCar4)
+    entCar4.setController(contCarAnimation)
+
+    entCar5 = CarEntity([20, 309], 3)
+    entCar5.setGameScreen(self.DisplayEngine)
+    contCarAnimation = CarController(entCar5)
+    entCar5.setController(contCarAnimation)
     
     # Create an animated Log
     listLastLogCoordinates = [1,70]
@@ -79,13 +89,16 @@ class GameEngine(object):
     entFirstLog.setController(contFirstLogAnimation)
     
     # Anything that can collide with the frog should be appended here
-    listCollisionEntities = [entCar, entCar2, entCar3]
+    #listCollisionEntities = [entCar, entCar2, entCar3, entCar4]
+    listCollisionEntities = [entFirstLog, entSecondLog]
 
     # Add a Car Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)
     self.DisplayEngine.addLayer(entCar)
     self.DisplayEngine.addLayer(entCar2)
     self.DisplayEngine.addLayer(entCar3)
+    self.DisplayEngine.addLayer(entCar4)
+    self.DisplayEngine.addLayer(entCar5)
     
     # Add the logs to the Game Layer
     self.DisplayEngine.addLayer(entFirstLog)

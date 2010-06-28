@@ -5,6 +5,7 @@ class CollisionEngine(object):
   def __init__(self):
     self.collisionEntities  = pygame.sprite.Group()
     self.hazardZones        = []
+    self.collisionList      = []
 
   def setControlledEntity(self, entity):
     self.controlledEntity = entity
@@ -16,6 +17,7 @@ class CollisionEngine(object):
     listCollision = pygame.sprite.spritecollide(self.controlledEntity, self.collisionEntities, False)
     
     if listCollision == []:
-      return False
+      self.collisionList.add(listCollision)
+
     return listCollision
 

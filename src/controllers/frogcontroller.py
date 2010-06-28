@@ -87,8 +87,8 @@ class FrogController(EntityController):
     moveSuccessful = True
       
     dictDirectionMap = {
-                       'UP'   : -self.Entity.Dimensions['height'], # Move the entity up by its Height in Pixels
-                       'DOWN' :  self.Entity.Dimensions['height'], # Move the entity down by its Height in Pixels
+                       'UP'   : -self.Entity.Dimensions['height'] - 5, # Move the entity up by its Height in Pixels
+                       'DOWN' :  self.Entity.Dimensions['height'] + 5, # Move the entity down by its Height in Pixels
                        'LEFT' : -self.Entity.Dimensions['width'],  # Move the entity left by its Width in Pixels
                        'RIGHT':  self.Entity.Dimensions['width']   # Move the entity right by its Width in Pixels
                        }

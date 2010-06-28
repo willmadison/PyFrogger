@@ -43,8 +43,8 @@ class FrogEntity(BaseEntity):
 
   def update(self):
     self.rect.move_ip(self.Coordinates['x'], self.Coordinates['y'])
-    self.rect.top = self.Coordinates['y']
-    self.rect.left = self.Coordinates['x']
+    self.rect.top   = self.Coordinates['y']
+    self.rect.left  = self.Coordinates['x']
     self.GameSurface.blit(self.Surface, (self.Coordinates['x'], self.Coordinates['y']))
 
   @property

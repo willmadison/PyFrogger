@@ -77,18 +77,19 @@ class EntityFactory(object):
     DIVIDERA_LOCATION  = [80,30]
     entSafeZoneDividerA = self.__createDivider(DIVIDERA_LOCATION)
     
-    DIVIDERB_LOCATION  = [220,30]
-    entSafeZoneDividerB = self.__createDivider(DIVIDERB_LOCATION)
+    DIVIDERB_LOCATION  = [210,30]
+    DIVIDERB_DIMENSIONS = [90, 30]
+    entSafeZoneDividerB = self.__createDivider(DIVIDERB_LOCATION, DIVIDERB_DIMENSIONS)
     
     DIVIDERC_LOCATION  = [360,30]
     entSafeZoneDividerC = self.__createDivider(DIVIDERC_LOCATION) 
     
     # Create the upper and lower sidewalks.
     
-    POINT_UPPERSWLOCATION = [18, 170]
+    POINT_UPPERSWLOCATION = [18, 160]
     entUpperSideWalk = self.__createSidewalk(POINT_UPPERSWLOCATION)
     
-    POINT_LOWERSWLOCATION = [18, 345]
+    POINT_LOWERSWLOCATION = [18, 340]
     entLowerSideWalk = self.__createSidewalk(POINT_LOWERSWLOCATION)
     
     # Add each of the static background entities to the list of background entities
@@ -108,29 +109,28 @@ class EntityFactory(object):
     return entBackgroundEntities
   
   def __createBackground(self):
-    BACKGROUND_LOCATION = [0, 30]
+    BACKGROUND_LOCATION   = [0, 30]
     BACKGROUND_DIMENSIONS = [500, 400]
-    entBackGround = StaticEntity(BACKGROUND_LOCATION, BACKGROUND_DIMENSIONS, COLOR_BACKGROUND_GREEN)
+    entBackGround         = StaticEntity(BACKGROUND_LOCATION, BACKGROUND_DIMENSIONS, COLOR_BACKGROUND_GREEN)
     entBackGround.setGameScreen(self.Surface)
     return entBackGround
 
   def __createStreet(self):
-    STREET_LOCATION = [18, 150]
-    STREET_DIMENSIONS = [464, 220]
+    STREET_LOCATION   = [18, 150]
+    STREET_DIMENSIONS = [464, 210]
     entStreet = StaticEntity(STREET_LOCATION, STREET_DIMENSIONS, COLOR_BLACK)
     entStreet.setGameScreen(self.Surface)
     return entStreet
 
   def __createWater(self):
     WATER_LOCATION = [18, 35]
-    WATER_DIMENSIONS = [464, 160]
+    WATER_DIMENSIONS = [464, 150]
     entWater = StaticEntity(WATER_LOCATION, WATER_DIMENSIONS, COLOR_NAVY_BLUE)
     entWater.setGameScreen(self.Surface)
     return entWater
 
-  def __createDivider(self, location):
-    DIVIDER_DIMENSIONS = [70, 30]
-    entSafeZoneDivider = StaticEntity(location, DIVIDER_DIMENSIONS, COLOR_BACKGROUND_GREEN)
+  def __createDivider(self, location, dimensions=[70, 30]):
+    entSafeZoneDivider = StaticEntity(location, dimensions, COLOR_BACKGROUND_GREEN)
     entSafeZoneDivider.setGameScreen(self.Surface)
     return entSafeZoneDivider
 
