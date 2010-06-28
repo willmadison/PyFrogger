@@ -17,7 +17,8 @@ class CollisionEngine(object):
     listCollision = pygame.sprite.spritecollide(self.controlledEntity, self.collisionEntities, False)
     
     if listCollision == []:
-      self.collisionList.add(listCollision)
+      self.collisionList.append(listCollision)
+      return False
 
-    return listCollision
+    return True
 

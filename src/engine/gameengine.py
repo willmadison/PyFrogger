@@ -90,21 +90,23 @@ class GameEngine(object):
     
     # Anything that can collide with the frog should be appended here
     #listCollisionEntities = [entCar, entCar2, entCar3, entCar4]
-    listCollisionEntities = [entFirstLog, entSecondLog]
+    listCollisionEntities = []
 
     # Add a Car Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)
+
+    # Add the logs to the Game Layer
+    self.DisplayEngine.addLayer(entFirstLog)
+    self.DisplayEngine.addLayer(entSecondLog)
+    self.DisplayEngine.addLayer(entLastLog)
+
+    self.DisplayEngine.addUserControlledLayer(entFrog)
+
     self.DisplayEngine.addLayer(entCar)
     self.DisplayEngine.addLayer(entCar2)
     self.DisplayEngine.addLayer(entCar3)
     self.DisplayEngine.addLayer(entCar4)
     self.DisplayEngine.addLayer(entCar5)
-    
-    # Add the logs to the Game Layer
-    self.DisplayEngine.addLayer(entFirstLog)
-    self.DisplayEngine.addLayer(entSecondLog)
-    self.DisplayEngine.addLayer(entLastLog)
-    self.DisplayEngine.addUserControlledLayer(entFrog)
 
     # Adding these entities into the collision engine will let the engine monitor
     # their position and on the action of a rectangle collision, the controlled

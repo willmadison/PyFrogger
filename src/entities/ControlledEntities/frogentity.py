@@ -1,4 +1,5 @@
-from src.entities.baseentity import BaseEntity
+from src.entities.baseentity  import BaseEntity
+from src.core.colors          import *
 import pygame
 
 class FrogEntity(BaseEntity):
@@ -11,6 +12,10 @@ class FrogEntity(BaseEntity):
       'width'   : 25,
       'height'  : 25
     }
+
+    # Define move offsets
+    self.moveVerticalOffset   = 5;
+    self.moveHorizontalOffset = 0;
 
     # Convert to a recognizable system of notation
     self.coordinates = {
@@ -25,6 +30,8 @@ class FrogEntity(BaseEntity):
 
     # Define this entities surface
     self.surfEntity = pygame.Surface((self.Dimensions['width'], self.Dimensions['height']))
+    self.surfEntity.fill(COLOR_KEY)
+    self.surfEntity.set_colorkey(COLOR_KEY) # Make froggie transparent
     self.rect = self.surfEntity.get_rect(left=self.coordinates['x'], top=self.coordinates['y'])
 
   def setGameScreen(self, gameScreen):
@@ -37,9 +44,85 @@ class FrogEntity(BaseEntity):
     self.myController.respond(eventFired)
 
   def draw(self):
-    pygame.draw.rect(self.Surface, (100, 146, 40), (0, 0, 5, 5))
-    pygame.draw.rect(self.Surface, (100, 146, 40), (3, 6, 5, 5))
-    pygame.draw.rect(self.Surface, (100, 146, 40), (6, 0, 5, 5))
+    FROG_SCALE_DIMENSIONS = (3, 3)
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((0, 5), FROG_SCALE_DIMENSIONS)) # Left Webbing of Hand
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 2), FROG_SCALE_DIMENSIONS)) # Left Arm
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 4), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 6), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 8), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 10), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((4, 10), FROG_SCALE_DIMENSIONS))
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((0, 20), FROG_SCALE_DIMENSIONS)) # Left Webbing of Foot
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 23), FROG_SCALE_DIMENSIONS)) # Left Foot
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 21), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 19), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((2, 17), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((4, 17), FROG_SCALE_DIMENSIONS))
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((22, 5), FROG_SCALE_DIMENSIONS)) # Right Webbing of Hand
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 2), FROG_SCALE_DIMENSIONS)) # Right Arm
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 4), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 6), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 8), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 10), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((18, 10), FROG_SCALE_DIMENSIONS))
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((22, 20), FROG_SCALE_DIMENSIONS)) # Right Webbing of Foot
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 23), FROG_SCALE_DIMENSIONS)) # Right Foot
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 21), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 19), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((20, 17), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((18, 17), FROG_SCALE_DIMENSIONS))
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((9, 21), FROG_SCALE_DIMENSIONS)) # Base of Body
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((12, 21), FROG_SCALE_DIMENSIONS))
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((13, 21), FROG_SCALE_DIMENSIONS))
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((8, 19), FROG_SCALE_DIMENSIONS)) # Second Layer of Body
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((11, 19), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((14, 19), FROG_SCALE_DIMENSIONS)) 
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((6, 17), FROG_SCALE_DIMENSIONS)) # Third Layer of Body
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((9, 17), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((12, 17), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((14, 17), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((16, 17), FROG_SCALE_DIMENSIONS)) 
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((6, 14), FROG_SCALE_DIMENSIONS)) # Fourth Layer of Body
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((9, 14), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((12, 14), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((14, 14), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((16, 14), FROG_SCALE_DIMENSIONS)) 
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((6, 11), FROG_SCALE_DIMENSIONS)) # Fifth Layer of Body
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((9, 11), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((12, 11), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((14, 11), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((16, 11), FROG_SCALE_DIMENSIONS)) 
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((6, 8), FROG_SCALE_DIMENSIONS)) # Sixth Layer of Body
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((9, 8), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((12, 8), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((14, 8), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((16, 8), FROG_SCALE_DIMENSIONS)) 
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((6, 5), FROG_SCALE_DIMENSIONS)) # Seventh Layer of Body
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((9, 5), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((12, 5), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((14, 5), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((16, 5), FROG_SCALE_DIMENSIONS)) 
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((9, 3), FROG_SCALE_DIMENSIONS)) # Head
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((12, 3), FROG_SCALE_DIMENSIONS)) 
+    pygame.draw.rect(self.Surface, COLOR_FROG_GREEN, ((13, 3), FROG_SCALE_DIMENSIONS)) 
+
+    pygame.draw.rect(self.Surface, COLOR_FROG_RED, ((6, 5), FROG_SCALE_DIMENSIONS)) # Eyes
+    pygame.draw.rect(self.Surface, COLOR_FROG_RED, ((16, 5), FROG_SCALE_DIMENSIONS))
 
   def update(self):
     self.rect.move_ip(self.Coordinates['x'], self.Coordinates['y'])

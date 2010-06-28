@@ -91,6 +91,11 @@ class EntityFactory(object):
     
     POINT_LOWERSWLOCATION = [18, 340]
     entLowerSideWalk = self.__createSidewalk(POINT_LOWERSWLOCATION)
+
+    # Add the scoreboard
+
+    SCOREBOARD_LOCATION = [0, 0]
+    entScoreBoard  = self.__createScoreboard(SCOREBOARD_LOCATION)
     
     # Add each of the static background entities to the list of background entities
     # in the order in which they need to be realized on screen.
@@ -103,6 +108,7 @@ class EntityFactory(object):
     entBackgroundEntities.append(entSafeZoneDividerC)
     entBackgroundEntities.append(entUpperSideWalk)
     entBackgroundEntities.append(entLowerSideWalk)
+    entBackgroundEntities.append(entScoreBoard)
     
     # Return the list of background entities to the caller.   
     
@@ -137,6 +143,12 @@ class EntityFactory(object):
   def __createSidewalk(self, location):
     SIDEWALK_DIMENSIONS = [464, 25]
     entSidewalk = StaticEntity(location, SIDEWALK_DIMENSIONS, COLOR_PALE_YELLOW)
+    entSidewalk.setGameScreen(self.Surface)
+    return entSidewalk    
+
+  def __createScoreboard(self, location):
+    SCOREBOARD_DIMENSIONS = [500, 30]
+    entSidewalk = StaticEntity(location, SCOREBOARD_DIMENSIONS, COLOR_PALE_YELLOW)
     entSidewalk.setGameScreen(self.Surface)
     return entSidewalk    
   
