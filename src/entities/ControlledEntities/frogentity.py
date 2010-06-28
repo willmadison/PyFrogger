@@ -130,6 +130,10 @@ class FrogEntity(BaseEntity):
     self.rect.left  = self.Coordinates['x']
     self.GameSurface.blit(self.Surface, (self.Coordinates['x'], self.Coordinates['y']))
 
+  def resetToStartingPosition(self):
+    self.coordinates['x'] = self.startingCoordinates['x']
+    self.coordinates['y'] = self.startingCoordinates['y']
+
   @property
   def Dimensions(self):
     return self.dimensions

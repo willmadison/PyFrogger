@@ -16,7 +16,7 @@ class LogController(EntityController):
 
   def __init__(self, controlledEntity):
     '''
-      Initializes the Car Controller.
+      Initializes the Log Controller.
     '''
     self.controlledEntity = controlledEntity
   

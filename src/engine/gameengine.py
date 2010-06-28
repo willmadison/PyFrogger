@@ -89,8 +89,8 @@ class GameEngine(object):
     entFirstLog.setController(contFirstLogAnimation)
     
     # Anything that can collide with the frog should be appended here
-    #listCollisionEntities = [entCar, entCar2, entCar3, entCar4]
-    listCollisionEntities = []
+    listCollisionEntities = [entCar, entCar2, entCar3, entCar4]
+    #listCollisionEntities = [entFirstLog, entSecondLog]
 
     # Add a Car Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)
@@ -122,18 +122,14 @@ class GameEngine(object):
     """
       Constantly render updates to the surface
     """
+    self.CollisionEngine.setPlayerLifeCounter(self.entLifeCounter)
     # if we find a collision then update the coordinates of the controlled entity
     # before it gets drawn to the display
-    collisionFound = self.CollisionEngine.checkForCollision()
-    if collisionFound != False:
-      # Reset the position of the frog
-      self.DisplayEngine.Frog.coordinates['x'] = self.DisplayEngine.Frog.startingCoordinates['x']
-      self.DisplayEngine.Frog.coordinates['y'] = self.DisplayEngine.Frog.startingCoordinates['y']
-      self.entLifeCounter.remove()
-      print "Current Life Count: " + str(self.entLifeCounter.Lives)
-      if self.entLifeCounter.Lives == 0:
-        print "GAME OVER!"
-        sys.exit()
+    self.CollisionEngine.checkForAndHandleCollisions()
+    print "Current Life Count: " + str(self.entLifeCounter.Lives)
+    if self.entLifeCounter.Lives == 0:
+      print "GAME OVER!"
+      sys.exit()
 
     self.engDisplay.updateDisplay()
     
