@@ -22,7 +22,16 @@ class GameController(BaseController):
 
     self.dictKeyActionMap = {
                              K_ESCAPE : self.quit,
-                             K_n      : self.GameEngine.reset
+                             K_n      : self.GameEngine.reset,
+                             K_p      : self.lifeCheat,
+                             K_y      : self.lifeCheat,
+                             K_f      : self.lifeCheat,
+                             K_r      : self.lifeCheat,
+                             K_o      : self.lifeCheat,
+                             K_g      : self.lifeCheat,
+                             K_g      : self.lifeCheat,
+                             K_e      : self.lifeCheat,
+                             K_r      : self.lifeCheat,
                             }
     
   def respond(self, eventFired):
@@ -42,13 +51,20 @@ class GameController(BaseController):
       
       # Respond Accordingly
       
-      self.KeyActionMap[eventFired.key]() 
+      self.KeyActionMap[eventFired.key](eventFired.key) 
       
     # Otherwise if and only if this is a quit event, quit the application.
     
     elif eventFired.type == QUIT:
       self.quit()
-  
+
+  def reset(self, keyPress):
+    return self.GameEngine.reset
+
+  def lifeCheat(self, keyPress):
+    keyPress = pygame.key.name(keyPress)
+    return self.GameEngine.lifeCheat(keyPress)
+
   @property
   def GameEngine(self):
     return self.gameEngine

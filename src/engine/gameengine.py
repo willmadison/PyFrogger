@@ -29,6 +29,9 @@ class GameEngine(object):
 
     self.gameWidth  = intDisplayWidth;
     self.gameHeight = intDisplayHeight;
+
+    # Cheat sequence 
+    self.cheatCharInput = [];
     
     # Init the main display engine
     self.engDisplay = DisplayEngine(
@@ -180,6 +183,28 @@ class GameEngine(object):
     
   def quit(self):
     return True
+
+  # a Fun little cheat :)
+  def lifeCheat(self, keyPress):
+    self.cheatCharInput.append(keyPress)
+
+    cheatCharInput        = "pyfrogger"
+    lengthOfCheatSequence = len(cheatCharInputuence)
+    lenOfCharInput        = len(self.cheatCharInput) 
+
+    # Need to see if we can actually test the string first, we may not have enough characters
+    if (lenOfCharInput / lengthOfCheatSequence) > 0:
+      # If the lengths are the same this means we have exactly one attempt to make
+      if lenOfCharInput == lengthOfCheatSequence:
+        testAttempts = 1
+      else:
+        testAttempts = lenOfCharInput - lengthOfCheatSequence
+
+      for startingPosition in xrange(0, testAttempts):
+        testSequence = "".join(self.cheatCharInput[startingPosition:(startingPosition + lengthOfCheatSequence)])
+        if testSequence == cheatCharInput:
+          self.entLifeCounter.add(99)
+          self.entLifeCounter.Text.setText(self.entLifeCounter.Lives)
 
   def reset(self):
     if self.freezeState == True:
