@@ -90,7 +90,8 @@ class GameEngine(object):
     
     # Anything that can collide with the frog should be appended here
     listCollisionEntities = [entCar, entCar2, entCar3, entCar4]
-    #listCollisionEntities = [entFirstLog, entSecondLog]
+    listCollisionEntities.append(entFirstLog)
+    listCollisionEntities.append(entSecondLog)
 
     # Add a Car Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)

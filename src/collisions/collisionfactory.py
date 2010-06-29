@@ -5,8 +5,7 @@ Created on June 28, 2009
 '''
 
 from src.collisions.carcollision import CarCollision
-#from src.collisions.logcollision import LogCollision
-
+from src.collisions.logcollision import LogCollision
 
 class CollisionFactory(object):
 
@@ -17,6 +16,6 @@ class CollisionFactory(object):
     carCollision = CarCollision(entFrog)
     return carCollision
 
-  #def createLogCollision(self, entLog, entFrog):
-    #logCollision = CarCollision(entLog, entFrog)
-    #return logCollision
+  def createLogCollision(self, entLog, entFrog):
+    logCollision = LogCollision(entLog, entFrog)
+    return logCollision
