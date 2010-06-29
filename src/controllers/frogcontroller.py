@@ -22,7 +22,6 @@ class FrogController(EntityController):
     self.controlledEntity = controlledEntity
     
     self.dictKeyActionMap = {
-                             K_ESCAPE        : self.quit,
                              pygame.K_UP     : self.moveUp,
                              pygame.K_DOWN   : self.moveDown,
                              pygame.K_LEFT   : self.moveLeft,

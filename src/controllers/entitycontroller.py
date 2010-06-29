@@ -10,24 +10,9 @@ import abc
 import pygame
 import sys
 
-class EntityController(object):
-  '''
-    This class is an abstract representation
-    of our controller construct. It will house
-    several abstract methods, which will be thrust
-    upon the subclasses for implementation details.
-  '''
+class BaseController(object):
   __metaclass__ = abc.ABCMeta
 
-  @abc.abstractmethod
-  def setEntity(self, controlledEntity):
-    '''
-     Set the classes controlled Entity instance
-     variable, (i.e. the entity which this controller
-     controls)
-    '''      
-    return
-   
   @abc.abstractmethod
   def respond(self, eventFired):
     '''
@@ -52,6 +37,35 @@ class EntityController(object):
       if the "Pause" event is fired.
     '''
     pass
+
+class EntityController(BaseController):
+  '''
+    This class is an abstract representation
+    of our controller construct. It will house
+    several abstract methods, which will be thrust
+    upon the subclasses for implementation details.
+  '''
+  __metaclass__ = abc.ABCMeta
+
+  @abc.abstractmethod
+  def setEntity(self, controlledEntity):
+    '''
+     Set the classes controlled Entity instance
+     variable, (i.e. the entity which this controller
+     controls)
+    '''      
+    return
+
+  @abc.abstractmethod
+  def respond(self, eventFired):
+    '''
+     Abstract implementation of a controller's 
+     response interface, which determines how the
+     controller causes the entity under its control
+     to respond (or not)
+    '''
+    return
+   
     
     
       

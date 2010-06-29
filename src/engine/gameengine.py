@@ -9,6 +9,8 @@ from src.controllers.animated.carcontroller  import CarController
 from src.entities.AnimatedEntities.carentity import CarEntity
 from src.controllers.animated.logcontroller  import LogController
 
+from src.controllers.gamecontroller          import GameController
+
 from src.core.text                           import *
 from src.core.colors                         import *
 
@@ -24,6 +26,9 @@ class GameEngine(object):
     self.GameConfig   = IniParser("engine.ini")
     intDisplayWidth   = int(self.GameConfig.get("EngineCore", "displayWidth"))
     intDisplayHeight  = int(self.GameConfig.get("EngineCore", "displayHeight"))
+
+    self.gameWidth  = intDisplayWidth;
+    self.gameHeight = intDisplayHeight;
     
     # Init the main display engine
     self.engDisplay = DisplayEngine(
@@ -92,7 +97,7 @@ class GameEngine(object):
     entFirstLog.setController(contFirstLogAnimation)
     
     # Anything that can collide with the frog should be appended here
-    listCollisionEntities = [entCar, entCar2, entCar3, entCar4]
+    listCollisionEntities = [entCar, entCar2, entCar3, entCar4, entCar5]
     listCollisionEntities.append(entFirstLog)
     listCollisionEntities.append(entSecondLog)
 
@@ -104,7 +109,10 @@ class GameEngine(object):
     self.DisplayEngine.addLayer(entSecondLog)
     self.DisplayEngine.addLayer(entLastLog)
 
+    # Add the universal game controller
+    UniversalGameController = GameController(self)
     self.DisplayEngine.addUserControlledLayer(entFrog)
+    self.DisplayEngine.addGameController(UniversalGameController)
 
     self.DisplayEngine.addLayer(entCar)
     self.DisplayEngine.addLayer(entCar2)
@@ -129,6 +137,8 @@ class GameEngine(object):
     entText = [ TitleText, LivesText, LivesCounterText ]
     self.DisplayEngine.addLayer(entText)
 
+    self.CollisionEngine.setPlayerLifeCounter(self.entLifeCounter)
+
     # Adding these entities into the collision engine will let the engine monitor
     # their position and on the action of a rectangle collision, the controlled
     # entity will be handled based on it's collision based methods
@@ -138,24 +148,43 @@ class GameEngine(object):
 
     # This variable keeps the run active
     self.running = True
+    self.freezeState = False
 
   def run(self):
     """
       Constantly render updates to the surface
     """
-    self.CollisionEngine.setPlayerLifeCounter(self.entLifeCounter)
     # if we find a collision then update the coordinates of the controlled entity
     # before it gets drawn to the display
     self.CollisionEngine.checkForAndHandleCollisions()
-    print "Current Life Count: " + str(self.entLifeCounter.Lives)
     if self.entLifeCounter.Lives == 0:
-      print "GAME OVER!"
-      sys.exit()
+      GameOverText = Text(FONT_BLOX, "GAME OVER", COLOR_FROG_RED, 60)
+      GameOverText.setGameScreen(self.DisplayEngine.Surface)
+      GameOverText.draw((self.gameWidth / 2 - 130, self.gameHeight / 2))
+
+      GameOverText2 = Text(FONT_BLOX, "Press ESC to Quit", COLOR_WHITE, 30)
+      GameOverText2.setGameScreen(self.DisplayEngine.Surface)
+      GameOverText2.draw((self.gameWidth / 2 - 120, self.gameHeight / 2 + 80))
+
+      GameOverText3 = Text(FONT_BLOX, "Press N for a New Game", COLOR_FROG_RED, 30)
+      GameOverText3.setGameScreen(self.DisplayEngine.Surface)
+      GameOverText3.draw((self.gameWidth / 2 - 150, self.gameHeight / 2 + 120))
+
+      self.freezeState = True # Flag to freeze the display
 
     self.engDisplay.updateDisplay()
+
+    # Freezes the Display
+    self.DisplayEngine.setFreezeState(self.freezeState)
     
   def quit(self):
     return True
+
+  def reset(self):
+    if self.freezeState == True:
+      self.entLifeCounter.add(3)
+      self.entLifeCounter.Text.setText(self.entLifeCounter.Lives)
+      self.freezeState = False
 
   @property
   def DisplayEngine(self):

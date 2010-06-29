@@ -34,6 +34,11 @@ class DisplayEngine(object):
       )
 
       self.clock = pygame.time.Clock()
+
+      self.States = {
+        
+        "freeze"  : False
+      }
     except StandardError as Error:
       print Error
 
@@ -42,6 +47,8 @@ class DisplayEngine(object):
     self.DisplayLayers.add(groupLayer)
     self.ControlledEntities.append(entLayer)
 
+  def addGameController(self, controller):
+    self.ControlledEntities.append(controller)
 
   def addLayer(self, entLayer):
     """ Add a layer to the rendering engine """
@@ -60,19 +67,22 @@ class DisplayEngine(object):
       It also draws anything in the DisplayLayers layer to the screen in the order in which they were added
       Then we update only the updated layers, not the entire screen
     """
-    self.DisplayLayers.update()
+    if self.States['freeze'] == False:
+      self.DisplayLayers.update()
+      self.animate()
 
     self.respond()
-
-    self.animate()
 
     pygame.display.update()
 
     self.clock.tick(80)
 
+  def setFreezeState(self, boolState):
+    self.States['freeze'] = bool(boolState)
+
   def respond(self):
-    for entity in self.ControlledEntities:
-      for event in pygame.event.get():
+    for event in pygame.event.get():
+      for entity in self.ControlledEntities:
         entity.respond(event)
 
   def animate(self):
