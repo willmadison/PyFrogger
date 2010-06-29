@@ -18,7 +18,7 @@ class EntityFactory(object):
       Set the factory's internal Display Engine Reference.
     '''
     
-    self.displayEngine = myDisplayEngine
+    self.displayEngine   = myDisplayEngine
     self.surfGameDisplay = myDisplayEngine.Surface
 
   def buildLifeCounter(self):
@@ -129,7 +129,7 @@ class EntityFactory(object):
     return entStreet
 
   def __createWater(self):
-    WATER_LOCATION = [18, 35]
+    WATER_LOCATION   = [18, 35]
     WATER_DIMENSIONS = [464, 150]
     entWater = StaticEntity(WATER_LOCATION, WATER_DIMENSIONS, COLOR_NAVY_BLUE)
     entWater.setGameScreen(self.Surface)
