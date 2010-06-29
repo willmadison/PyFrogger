@@ -9,6 +9,9 @@ from src.controllers.animated.carcontroller  import CarController
 from src.entities.AnimatedEntities.carentity import CarEntity
 from src.controllers.animated.logcontroller  import LogController
 
+from src.core.text                           import *
+from src.core.colors                         import *
+
 import sys
 
 class GameEngine(object):
@@ -108,6 +111,23 @@ class GameEngine(object):
     self.DisplayEngine.addLayer(entCar3)
     self.DisplayEngine.addLayer(entCar4)
     self.DisplayEngine.addLayer(entCar5)
+
+    TitleText = Text(FONT_BLOX, "PyFrogger", COLOR_FROG_GREEN, 20)
+    TitleText.setGameScreen(self.DisplayEngine.Surface)
+    TitleText.draw((400, 4))
+
+    LivesText = Text(FONT_BLOX, "Lives ", COLOR_FROG_GREEN, 20)
+    LivesText.setGameScreen(self.DisplayEngine.Surface)
+    LivesText.draw((10, 4))
+
+    LivesCounterText = Text(FONT_BLOX, "3", COLOR_FROG_RED, 20)
+    LivesCounterText.setGameScreen(self.DisplayEngine.Surface)
+    LivesCounterText.draw((70, 4))
+
+    self.entLifeCounter.setLifeTextEntity(LivesCounterText)
+
+    entText = [ TitleText, LivesText, LivesCounterText ]
+    self.DisplayEngine.addLayer(entText)
 
     # Adding these entities into the collision engine will let the engine monitor
     # their position and on the action of a rectangle collision, the controlled

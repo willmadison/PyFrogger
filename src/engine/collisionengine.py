@@ -29,6 +29,7 @@ class CollisionEngine(object):
           carCollisionHandler = collisionFactory.createCarCollision(self.controlledEntity)
           carCollisionHandler.handleCollision()
           self.playerLifeCounter.remove()
+          self.playerLifeCounter.Text.setText(self.playerLifeCounter.Lives)
           break
 
         elif isinstance(entity, LogEntity):

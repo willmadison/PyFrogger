@@ -148,7 +148,7 @@ class EntityFactory(object):
 
   def __createScoreboard(self, location):
     SCOREBOARD_DIMENSIONS = [500, 30]
-    entSidewalk = StaticEntity(location, SCOREBOARD_DIMENSIONS, COLOR_PALE_YELLOW)
+    entSidewalk = StaticEntity(location, SCOREBOARD_DIMENSIONS, COLOR_WHITE)
     entSidewalk.setGameScreen(self.Surface)
     return entSidewalk    
   

@@ -17,6 +17,9 @@ class LifeEntity(BaseEntity):
     self.intLifeCounter += intLife
     return True
 
+  def setLifeTextEntity(self, lifeTextEntity):
+    self.lifeTextEntity = lifeTextEntity
+
   def setGameScreen(self):
     pass
 
@@ -28,6 +31,10 @@ class LifeEntity(BaseEntity):
 
   def draw(self):
     pass
+
+  @property
+  def Text(self):
+    return self.lifeTextEntity
 
   @property
   def Lives(self):
