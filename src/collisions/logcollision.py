@@ -17,7 +17,9 @@ class LogCollision(BaseCollision):
       This is the function responsible for providing the 
       means of handling a collision of between a Log and a Frog.
     '''
-    print "I done bumped into a log..."
+    #Move the Frog in Tandem with the Log.
+
+    self.FrogCollidedWith.Coordinates['x'] += self.LogCollidedWith.speed
 
   @property
   def FrogCollidedWith(self):

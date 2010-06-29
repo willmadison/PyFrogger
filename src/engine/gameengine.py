@@ -73,7 +73,7 @@ class GameEngine(object):
     
     # Create an animated Log
     listLastLogCoordinates = [1,70]
-    intLastLogSpeed        = 2
+    intLastLogSpeed        = 3
     
     entLastLog = LogEntity(listLastLogCoordinates, intLastLogSpeed, LogEntity.LEFT_TO_RIGHT)
     entLastLog.setGameScreen(self.DisplayEngine)
@@ -89,7 +89,7 @@ class GameEngine(object):
     entSecondLog.setController(contSecondLogAnimation)
     
     listFirstLogCoordinates = [1,130]
-    intFirstLogSpeed        = 2
+    intFirstLogSpeed        = 1
     
     entFirstLog = LogEntity(listFirstLogCoordinates, intFirstLogSpeed, LogEntity.LEFT_TO_RIGHT)
     entFirstLog.setGameScreen(self.DisplayEngine)
@@ -100,6 +100,7 @@ class GameEngine(object):
     listCollisionEntities = [entCar, entCar2, entCar3, entCar4, entCar5]
     listCollisionEntities.append(entFirstLog)
     listCollisionEntities.append(entSecondLog)
+    listCollisionEntities.append(entLastLog)
 
     # Add a Car Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)

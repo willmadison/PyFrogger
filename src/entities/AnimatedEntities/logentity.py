@@ -35,7 +35,7 @@ class LogEntity(BaseEntity):
      
     # Convert to a recognizable system of notation
     self.dimensions = {
-      'width'   : 90,
+      'width'   : 100,
       'height'  : 25
     }
 
