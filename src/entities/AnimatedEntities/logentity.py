@@ -27,7 +27,7 @@ class LogEntity(BaseEntity):
     pygame.sprite.DirtySprite.__init__(self)
     
     # Set the entities speed in pps
-    self.speed = speed
+    self.speed = speed * orientation
     
     # Set the orientation of the Log (i.e. which direction it will go across the screen
     

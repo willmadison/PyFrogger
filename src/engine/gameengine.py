@@ -40,11 +40,11 @@ class GameEngine(object):
       (intDisplayWidth, intDisplayHeight)
     )
 
-    defaultEntityFactory = EntityFactory(self.engDisplay)
+    defaultEntityFactory = EntityFactory(self.DisplayEngine)
 
     listStaticBackgroundEntities = defaultEntityFactory.buildBackground()
 
-    self.engCollision = CollisionEngine(self)
+    self.engCollision   = CollisionEngine(self)
     self.entLifeCounter = defaultEntityFactory.buildLifeCounter()
 
     entFrog = defaultEntityFactory.buildFrog()
@@ -85,7 +85,7 @@ class GameEngine(object):
     contLastLogAnimation = LogController(entLastLog)
     entLastLog.setController(contLastLogAnimation)
     
-    listSecondLogCoordinates = [1,100]
+    listSecondLogCoordinates = [485,100]
     intSecondLogSpeed        = 2
     
     entSecondLog = LogEntity(listSecondLogCoordinates, intSecondLogSpeed, LogEntity.RIGHT_TO_LEFT)
@@ -154,6 +154,20 @@ class GameEngine(object):
     entSafeZoneD.setGameScreen(self.DisplayEngine)
     listSafeZones.append(entSafeZoneD)
 
+    #Add the Hazard Boundary Borders
+    listHazardBoundaryBorders       = []
+    LEFT_HAZARD_BOUNDARY_LOCATION   = [0, 30]
+    LEFT_HAZARD_BOUNDARY_DIMENSIONS = [19, 130]
+    entLeftHazardBoundary           = StaticEntity(LEFT_HAZARD_BOUNDARY_LOCATION, LEFT_HAZARD_BOUNDARY_DIMENSIONS, COLOR_BACKGROUND_GREEN)
+    entLeftHazardBoundary.setGameScreen(self.DisplayEngine.Surface)
+    listHazardBoundaryBorders.append(entLeftHazardBoundary)
+
+    RIGHT_HAZARD_BOUNDARY_LOCATION   = [482, 30]
+    RIGHT_HAZARD_BOUNDARY_DIMENSIONS = [19, 130]
+    entRightHazardBoundary           = StaticEntity(RIGHT_HAZARD_BOUNDARY_LOCATION, RIGHT_HAZARD_BOUNDARY_DIMENSIONS, COLOR_BACKGROUND_GREEN)
+    entRightHazardBoundary.setGameScreen(self.DisplayEngine.Surface)
+    listHazardBoundaryBorders.append(entRightHazardBoundary)
+
     # Anything that can collide with the frog should be appended here
     listCollisionEntities = [entCar, entCar2, entCar3, entCar4, entCar5]
     listCollisionEntities.append(entFirstLog)
@@ -179,6 +193,10 @@ class GameEngine(object):
     self.DisplayEngine.addLayer(entFirstLog)
     self.DisplayEngine.addLayer(entSecondLog)
     self.DisplayEngine.addLayer(entLastLog)
+
+    #Add the Hazard Boundary Borders
+
+    self.DisplayEngine.addLayer(listHazardBoundaryBorders)
 
     # Add the universal game controller
     UniversalGameController = GameController(self)
@@ -243,7 +261,7 @@ class GameEngine(object):
 
       self.freezeState = True # Flag to freeze the display
 
-    self.engDisplay.updateDisplay()
+    self.DisplayEngine.updateDisplay()
 
     # Freezes the Display
     self.DisplayEngine.setFreezeState(self.freezeState)

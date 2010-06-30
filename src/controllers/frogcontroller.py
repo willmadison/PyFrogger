@@ -81,9 +81,6 @@ class FrogController(EntityController):
       
       @param direction:
     '''
-    # Assume that the move will be successful.
-    
-    moveSuccessful = True
       
     dictDirectionMap = {
                        'UP'   : -self.Entity.Dimensions['height'] - self.Entity.moveVerticalOffset,   # Move the entity up by its Height in Pixels
@@ -97,18 +94,44 @@ class FrogController(EntityController):
    # self.Entity.surfEntity = self.Entity.arrFacingDirectionImages[direction]
   
     if direction in ['UP', 'DOWN']:
-      self.Entity.Coordinates['y'] += dictDirectionMap[direction]
+      newYCoordinate = self.Entity.Coordinates['y'] + dictDirectionMap[direction]
+
+      if self.isValidYCoordinate(newYCoordinate) :
+        self.Entity.Coordinates['y'] = newYCoordinate
       
     # Otherwise the user intends to move horizontally, so update the x coordinate accordingly.
       
     else:
-      self.Entity.Coordinates['x'] += dictDirectionMap[direction]
+      newXCoordinate = self.Entity.Coordinates['x'] + dictDirectionMap[direction]
 
-    return moveSuccessful
-      
+      if self.isValidXCoordinate(newXCoordinate) :
+        self.Entity.Coordinates['x'] = newXCoordinate
+
   def resetFrogToStartingPosition(self):
     self.Entity.coordinates['x'] = self.Entity.startingCoordinates['x']
     self.Entity.coordinates['y'] = self.Entity.startingCoordinates['y']
+
+  def isValidXCoordinate(self, xCoordinateToTest):
+    
+    LEFT_SIDE_HORIZONTAL_BOUNDARY  = 16
+    RIGHT_SIDE_HORIZONTAL_BOUNDARY = 450
+    isAValidXCoordinate = True
+
+    if (xCoordinateToTest < LEFT_SIDE_HORIZONTAL_BOUNDARY or
+        xCoordinateToTest > RIGHT_SIDE_HORIZONTAL_BOUNDARY) :
+         isAValidXCoordinate = False
+
+    return isAValidXCoordinate
+
+  def isValidYCoordinate(self, yCoordinateToTest):
+
+    BOTTOM_BOUNDARY     = 400
+    isAValidYCoordinate = True
+    
+    if yCoordinateToTest >= BOTTOM_BOUNDARY :
+      isAValidYCoordinate = False
+
+    return isAValidYCoordinate
 
   @property
   def Entity(self):

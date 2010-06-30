@@ -45,13 +45,13 @@ class LogController(EntityController):
     # The entity has migrated off the x axis, with respect to its orientation.
     
     if self.Entity.orientation == self.Entity.LEFT_TO_RIGHT:
-      if self.Entity.Coordinates['x'] >= 485 - self.Entity.Dimensions['width']:
-        self.Entity.Coordinates['x'] = 50
+      if self.Entity.Coordinates['x'] >= 485:
+        self.Entity.Coordinates['x'] = -self.Entity.Dimensions['width']
         self.Entity.speed = int(random.uniform(1.0, 2.0)) * self.Entity.orientation
     
     else:
-      if self.Entity.Coordinates['x'] <= 15: 
-        self.Entity.Coordinates['x'] = 485 - self.Entity.Dimensions['width']        
+      if self.Entity.Coordinates['x'] <= -self.Entity.Dimensions['width']: 
+        self.Entity.Coordinates['x'] = 485        
         self.Entity.speed = int(random.uniform(1.0, 2.0)) * self.Entity.orientation
     
     self.Entity.Coordinates['x'] += self.Entity.speed 
