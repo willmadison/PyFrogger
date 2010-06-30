@@ -1,6 +1,7 @@
 from src.collisions.collisionfactory          import CollisionFactory
 from src.entities.AnimatedEntities.logentity  import LogEntity
 from src.entities.AnimatedEntities.carentity  import CarEntity
+from src.entities.StaticEntities.hazardentity import HazardEntity
 import sys, pygame
 
 class CollisionEngine(object):
@@ -18,6 +19,7 @@ class CollisionEngine(object):
     self.playerLifeCounter  = playerLifeCounter
    
   def checkForAndHandleCollisions(self):
+    
     listOfCollisionEntities = self.checkForCollisions()
 
     if len(listOfCollisionEntities) > 0:
@@ -28,8 +30,8 @@ class CollisionEngine(object):
         if isinstance(entity, CarEntity):
           carCollisionHandler = collisionFactory.createCarCollision(self.controlledEntity)
           carCollisionHandler.handleCollision()
-          self.playerLifeCounter.remove()
-          self.playerLifeCounter.Text.setText(self.playerLifeCounter.Lives)
+          #self.playerLifeCounter.remove()
+          #self.playerLifeCounter.Text.setText(self.playerLifeCounter.Lives)
           break
 
         elif isinstance(entity, LogEntity):
@@ -37,8 +39,15 @@ class CollisionEngine(object):
           logCollisionHandler = collisionFactory.createLogCollision(logCollidedWith, self.controlledEntity)
           logCollisionHandler.handleCollision()
           break
+        
+        elif isinstance(entity, HazardEntity):
+          hazardZoneCollisionHandler = collisionFactory.createHazardZoneCollision(self.controlledEntity)
+          hazardZoneCollisionHandler.handleCollision()          
+          break
 
   def checkForCollisions(self):
     listCollision = pygame.sprite.spritecollide(self.controlledEntity, self.collisionEntities, False)
+    
+    print listCollision
     
     return listCollision

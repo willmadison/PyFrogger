@@ -71,14 +71,13 @@ class LogEntity(BaseEntity):
     self.Surface.set_colorkey(color)
 
   def draw(self):
-    """ Create the graphic for the car entity (r, g, b) (x, y, width, height) """
+    """ Create the graphic for the log entity (r, g, b) (x, y, width, height) """
 
     logLocationAndSize = (0, 0, self.Dimensions['width'], self.Dimensions['height'])
     
     # Tuple representing the base color of the car
     tupLogColor   = (131, 48, 8)
-    tupBlueColor  = (29, 41, 90) #@UnusedVariable
-
+    
     # Log Background
     pygame.draw.rect(self.Surface, tupLogColor, logLocationAndSize)
     

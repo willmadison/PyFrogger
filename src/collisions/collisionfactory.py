@@ -4,8 +4,9 @@ Created on June 28, 2009
 @author: William Madison
 '''
 
-from src.collisions.carcollision import CarCollision
-from src.collisions.logcollision import LogCollision
+from src.collisions.carcollision        import CarCollision
+from src.collisions.logcollision        import LogCollision
+from src.collisions.hazardzonecollision import HazardZoneCollision
 
 class CollisionFactory(object):
 
@@ -19,3 +20,7 @@ class CollisionFactory(object):
   def createLogCollision(self, entLog, entFrog):
     logCollision = LogCollision(entLog, entFrog)
     return logCollision
+  
+  def createHazardZoneCollision(self, entFrog):
+    hazardZoneCollision = HazardZoneCollision(entFrog)
+    return hazardZoneCollision

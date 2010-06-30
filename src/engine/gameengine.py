@@ -6,8 +6,10 @@ from src.entities.AnimatedEntities.logentity import LogEntity
 from src.entities.entityfactory              import EntityFactory
 from src.controllers.animated.carcontroller  import CarController
 
-from src.entities.AnimatedEntities.carentity import CarEntity
-from src.controllers.animated.logcontroller  import LogController
+from src.entities.AnimatedEntities.carentity  import CarEntity
+from src.entities.StaticEntities.staticentity import StaticEntity
+from src.entities.StaticEntities.hazardentity import HazardEntity
+from src.controllers.animated.logcontroller   import LogController
 
 from src.controllers.gamecontroller          import GameController
 
@@ -99,14 +101,26 @@ class GameEngine(object):
     contFirstLogAnimation = LogController(entFirstLog)
     entFirstLog.setController(contFirstLogAnimation)
     
+    #Create the Larger Hazard Zone
+    listHazardZones         = []
+    LARGE_HAZARD_LOCATION   = [18, 65]
+    LARGE_HAZARD_DIMENSIONS = [464, 95]
+    entLargeHazardZone      = HazardEntity(LARGE_HAZARD_LOCATION, LARGE_HAZARD_DIMENSIONS, COLOR_NAVY_BLUE)
+    entLargeHazardZone.setGameScreen(self.DisplayEngine)
+    listHazardZones.append(entLargeHazardZone)
+    
     # Anything that can collide with the frog should be appended here
     listCollisionEntities = [entCar, entCar2, entCar3, entCar4, entCar5]
     listCollisionEntities.append(entFirstLog)
     listCollisionEntities.append(entSecondLog)
     listCollisionEntities.append(entLastLog)
-
-    # Add a Car Entities to the Game Layer
+    listCollisionEntities.append(entLargeHazardZone)
+     
+    # Add a Background Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)
+    
+    #Add the HazardZone to the Game Layer
+    self.DisplayEngine.addLayer(listHazardZones)    
 
     # Add the logs to the Game Layer
     self.DisplayEngine.addLayer(entFirstLog)
@@ -189,7 +203,7 @@ class GameEngine(object):
     self.cheatCharInput.append(keyPress)
 
     cheatCharInput        = "pyfrogger"
-    lengthOfCheatSequence = len(cheatCharInputuence)
+    lengthOfCheatSequence = len(cheatCharInput)
     lenOfCharInput        = len(self.cheatCharInput) 
 
     # Need to see if we can actually test the string first, we may not have enough characters
