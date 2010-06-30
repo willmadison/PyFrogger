@@ -40,7 +40,7 @@ class CollisionEngine(object):
       hazardZoneCollisionHandler.handleCollision()          
 
     elif isinstance(entityCollidedWith, SafeZoneEntity):
-      safeZoneCollisionHandler = collisionFactory.createSafeZoneCollision(self.controlledEntity, self.gameEngine)
+      safeZoneCollisionHandler = collisionFactory.createSafeZoneCollision(entityCollidedWith, self.controlledEntity, self.playerLifeCounter, self.gameEngine)
       safeZoneCollisionHandler.handleCollision()          
 
   def checkForCollisions(self):

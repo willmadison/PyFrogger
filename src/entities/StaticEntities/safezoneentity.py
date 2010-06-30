@@ -17,6 +17,8 @@ class SafeZoneEntity(BaseEntity):
     # Init the dirty sprite pygame object
     pygame.sprite.DirtySprite.__init__(self)
 
+    self.isOccupied = False
+
     # Convert to a recognizable system of notation
     self.dimensions = {
       'width'   : dimensions[0],
@@ -73,7 +75,10 @@ class SafeZoneEntity(BaseEntity):
     
   def update(self):
     self.GameSurface.blit(self.Surface, (self.Coordinates['x'], self.Coordinates['y']))
-      
+
+  def markOccupied(self):
+    self.isOccupied = True 
+
   @property
   def Coordinates(self):
     return self.coordinates
@@ -104,3 +109,7 @@ class SafeZoneEntity(BaseEntity):
   @property
   def DisplayEngine(self):
     return self.engDisplay
+
+  @property
+  def IsOccupied(self):
+    return self.isOccupied

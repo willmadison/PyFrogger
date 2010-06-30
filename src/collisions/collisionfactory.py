@@ -26,6 +26,6 @@ class CollisionFactory(object):
     hazardZoneCollision = HazardZoneCollision(entFrog, playerLifeCounter)
     return hazardZoneCollision
 
-  def createSafeZoneCollision(self, entFrog, gameEngine):
-    safeZoneCollision = SafeZoneCollision(entFrog, gameEngine)
+  def createSafeZoneCollision(self, entSafeZone, entFrog, playerLifeCounter, gameEngine):
+    safeZoneCollision = SafeZoneCollision(entSafeZone, entFrog, playerLifeCounter, gameEngine)
     return safeZoneCollision
