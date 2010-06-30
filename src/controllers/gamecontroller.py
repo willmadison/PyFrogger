@@ -22,7 +22,7 @@ class GameController(BaseController):
 
     self.dictKeyActionMap = {
                              K_ESCAPE : self.quit,
-                             K_n      : self.GameEngine.reset,
+                             K_n      : self.reset,
                              K_p      : self.lifeCheat,
                              K_y      : self.lifeCheat,
                              K_f      : self.lifeCheat,
@@ -59,7 +59,7 @@ class GameController(BaseController):
       self.quit()
 
   def reset(self, keyPress):
-    return self.GameEngine.reset
+    return self.GameEngine.reset()
 
   def lifeCheat(self, keyPress):
     keyPress = pygame.key.name(keyPress)
@@ -72,11 +72,3 @@ class GameController(BaseController):
   @property
   def KeyActionMap(self):
     return self.dictKeyActionMap
-    
-    
-    
-  
-  
-      
-    
-    

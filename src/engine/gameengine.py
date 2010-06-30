@@ -1,17 +1,17 @@
 from src.core.iniparser                      import IniParser
 from src.engine.displayengine                import DisplayEngine
 from src.engine.collisionengine              import CollisionEngine
-from src.entities.AnimatedEntities.logentity import LogEntity
 
-from src.entities.entityfactory              import EntityFactory
 from src.controllers.animated.carcontroller  import CarController
-
-from src.entities.AnimatedEntities.carentity  import CarEntity
-from src.entities.StaticEntities.staticentity import StaticEntity
-from src.entities.StaticEntities.hazardentity import HazardEntity
-from src.controllers.animated.logcontroller   import LogController
-
 from src.controllers.gamecontroller          import GameController
+
+from src.entities.entityfactory                 import EntityFactory
+from src.entities.AnimatedEntities.logentity    import LogEntity
+from src.entities.AnimatedEntities.carentity    import CarEntity
+from src.entities.StaticEntities.staticentity   import StaticEntity
+from src.entities.StaticEntities.hazardentity   import HazardEntity
+from src.entities.StaticEntities.safezoneentity import SafeZoneEntity
+from src.controllers.animated.logcontroller     import LogController
 
 from src.core.text                           import *
 from src.core.colors                         import *
@@ -44,7 +44,7 @@ class GameEngine(object):
 
     listStaticBackgroundEntities = defaultEntityFactory.buildBackground()
 
-    self.engCollision = CollisionEngine()
+    self.engCollision = CollisionEngine(self)
     self.entLifeCounter = defaultEntityFactory.buildLifeCounter()
 
     entFrog = defaultEntityFactory.buildFrog()
@@ -101,26 +101,79 @@ class GameEngine(object):
     contFirstLogAnimation = LogController(entFirstLog)
     entFirstLog.setController(contFirstLogAnimation)
     
-    #Create the Larger Hazard Zone
+    #Create the Large Hazard Zone
     listHazardZones         = []
     LARGE_HAZARD_LOCATION   = [18, 65]
     LARGE_HAZARD_DIMENSIONS = [464, 95]
-    entLargeHazardZone      = HazardEntity(LARGE_HAZARD_LOCATION, LARGE_HAZARD_DIMENSIONS, COLOR_FROG_RED)
+    entLargeHazardZone      = HazardEntity(LARGE_HAZARD_LOCATION, LARGE_HAZARD_DIMENSIONS, COLOR_NAVY_BLUE)
     entLargeHazardZone.setGameScreen(self.DisplayEngine)
     listHazardZones.append(entLargeHazardZone)
+
+    #Create the Smaller Intermediate Hazard Zones
+    HAZARD_ZONEA_LOCATION   = [80,30]
+    HAZARD_ZONEA_DIMENSIONS = [70, 30]
+    entHazardZoneA          = HazardEntity(HAZARD_ZONEA_LOCATION, HAZARD_ZONEA_DIMENSIONS, COLOR_BACKGROUND_GREEN)
+    entHazardZoneA.setGameScreen(self.DisplayEngine)
+    listHazardZones.append(entHazardZoneA)
+
+    HAZARD_ZONEB_LOCATION   = [210,30]
+    HAZARD_ZONEB_DIMENSIONS = [90, 30]
+    entHazardZoneB          = HazardEntity(HAZARD_ZONEB_LOCATION, HAZARD_ZONEB_DIMENSIONS, COLOR_BACKGROUND_GREEN)
+    entHazardZoneB.setGameScreen(self.DisplayEngine)
+    listHazardZones.append(entHazardZoneB)
+
+    HAZARD_ZONEC_LOCATION   = [360,30]
+    HAZARD_ZONEC_DIMENSIONS = [70, 30]
+    entHazardZoneC          = HazardEntity(HAZARD_ZONEC_LOCATION, HAZARD_ZONEC_DIMENSIONS, COLOR_BACKGROUND_GREEN)
+    entHazardZoneC.setGameScreen(self.DisplayEngine)
+    listHazardZones.append(entHazardZoneC)
     
+    #Create the SafeZones 
+    listSafeZones         = []
+    SAFE_ZONEA_LOCATION   = [20,30]
+    SAFE_ZONEA_DIMENSIONS = [60, 30]
+    entSafeZoneA          = SafeZoneEntity(SAFE_ZONEA_LOCATION, SAFE_ZONEA_DIMENSIONS, COLOR_WHITE)
+    entSafeZoneA.setGameScreen(self.DisplayEngine)
+    listSafeZones.append(entSafeZoneA)
+
+    SAFE_ZONEB_LOCATION   = [151,30]
+    SAFE_ZONEB_DIMENSIONS = [60, 30]
+    entSafeZoneB          = SafeZoneEntity(SAFE_ZONEB_LOCATION, SAFE_ZONEB_DIMENSIONS, COLOR_WHITE)
+    entSafeZoneB.setGameScreen(self.DisplayEngine)
+    listSafeZones.append(entSafeZoneB)
+
+    SAFE_ZONEC_LOCATION   = [300,30]
+    SAFE_ZONEC_DIMENSIONS = [60, 30]
+    entSafeZoneC          = SafeZoneEntity(SAFE_ZONEC_LOCATION, SAFE_ZONEC_DIMENSIONS, COLOR_WHITE)
+    entSafeZoneC.setGameScreen(self.DisplayEngine)
+    listSafeZones.append(entSafeZoneC)
+
+    SAFE_ZONED_LOCATION   = [435,30]
+    SAFE_ZONED_DIMENSIONS = [52, 30]
+    entSafeZoneD          = SafeZoneEntity(SAFE_ZONED_LOCATION, SAFE_ZONED_DIMENSIONS, COLOR_WHITE)
+    entSafeZoneD.setGameScreen(self.DisplayEngine)
+    listSafeZones.append(entSafeZoneD)
+
     # Anything that can collide with the frog should be appended here
     listCollisionEntities = [entCar, entCar2, entCar3, entCar4, entCar5]
     listCollisionEntities.append(entFirstLog)
     listCollisionEntities.append(entSecondLog)
-    listCollisionEntities.append(entLastLog)
-    listCollisionEntities.append(entLargeHazardZone)
-     
+    listCollisionEntities.append(entLastLog) 
+    
+    for hazardZone in listHazardZones:
+      listCollisionEntities.append(hazardZone)
+
+    for safeZone in listSafeZones:
+      listCollisionEntities.append(safeZone)
+
     # Add a Background Entities to the Game Layer
     self.DisplayEngine.addLayer(listStaticBackgroundEntities)
     
-    #Add the HazardZone to the Game Layer
+    #Add the HazardZones to the Game Layer
     self.DisplayEngine.addLayer(listHazardZones)    
+
+    #Add the SafeZones to the Game Layer
+    self.DisplayEngine.addLayer(listSafeZones)    
 
     # Add the logs to the Game Layer
     self.DisplayEngine.addLayer(entFirstLog)

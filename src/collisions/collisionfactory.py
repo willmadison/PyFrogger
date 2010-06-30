@@ -7,20 +7,25 @@ Created on June 28, 2009
 from src.collisions.carcollision        import CarCollision
 from src.collisions.logcollision        import LogCollision
 from src.collisions.hazardzonecollision import HazardZoneCollision
+from src.collisions.safezonecollision   import SafeZoneCollision
 
 class CollisionFactory(object):
 
   def __init__(self):
     pass
 
-  def createCarCollision(self, entFrog):
-    carCollision = CarCollision(entFrog)
+  def createCarCollision(self, entFrog, playerLifeCounter):
+    carCollision = CarCollision(entFrog, playerLifeCounter)
     return carCollision
 
   def createLogCollision(self, entLog, entFrog):
     logCollision = LogCollision(entLog, entFrog)
     return logCollision
   
-  def createHazardZoneCollision(self, entFrog):
-    hazardZoneCollision = HazardZoneCollision(entFrog)
+  def createHazardZoneCollision(self, entFrog, playerLifeCounter):
+    hazardZoneCollision = HazardZoneCollision(entFrog, playerLifeCounter)
     return hazardZoneCollision
+
+  def createSafeZoneCollision(self, entFrog, gameEngine):
+    safeZoneCollision = SafeZoneCollision(entFrog, gameEngine)
+    return safeZoneCollision

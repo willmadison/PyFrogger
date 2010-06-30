@@ -7,6 +7,8 @@ class FrogEntity(BaseEntity):
   def __init__(self, coordinates=[0,0]):
     pygame.sprite.DirtySprite.__init__(self)
 
+    self.controllerActive = True
+
     # Convert to a recognizable system of notation
     self.dimensions = {
       'width'   : 25,
@@ -38,10 +40,17 @@ class FrogEntity(BaseEntity):
     self.surfGameDisplay = gameScreen
 
   def setController(self, myController):
-    self.myController = myController
+    if myController == None :
+      self.myController     = None
+      self.controllerActive = False
+    else :
+      self.myController = myController
 
   def respond(self, eventFired):
-    self.myController.respond(eventFired)
+    if self.controllerActive :
+      self.myController.respond(eventFired)
+    else :
+      pass
 
   def draw(self):
     FROG_SCALE_DIMENSIONS = (3, 3)
@@ -130,10 +139,6 @@ class FrogEntity(BaseEntity):
     self.rect.left  = self.Coordinates['x']
     self.GameSurface.blit(self.Surface, (self.Coordinates['x'], self.Coordinates['y']))
 
-  def resetToStartingPosition(self):
-    self.coordinates['x'] = self.startingCoordinates['x']
-    self.coordinates['y'] = self.startingCoordinates['y']
-
   @property
   def Dimensions(self):
     return self.dimensions
@@ -153,6 +158,10 @@ class FrogEntity(BaseEntity):
   @property
   def GameSurface(self):
     return self.surfGameDisplay
+
+  @property
+  def Controller(self):
+    return self.myController
 
 
 if __name__ == "__main__":

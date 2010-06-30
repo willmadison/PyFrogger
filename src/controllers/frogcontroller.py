@@ -106,6 +106,10 @@ class FrogController(EntityController):
 
     return moveSuccessful
       
+  def resetFrogToStartingPosition(self):
+    self.Entity.coordinates['x'] = self.Entity.startingCoordinates['x']
+    self.Entity.coordinates['y'] = self.Entity.startingCoordinates['y']
+
   @property
   def Entity(self):
     return self.controlledEntity
