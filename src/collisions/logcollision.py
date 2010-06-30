@@ -19,7 +19,11 @@ class LogCollision(BaseCollision):
     '''
     #Move the Frog in Tandem with the Log.
 
-    self.FrogCollidedWith.Coordinates['x'] += self.LogCollidedWith.speed
+    frogsNewXCoordinate = self.FrogCollidedWith.Coordinates['x'] + self.LogCollidedWith.speed
+
+    # Check with the Frog's Controller to be sure we're moving the frog into a valid position
+    if self.FrogCollidedWith.Controller.isValidXCoordinate(frogsNewXCoordinate) :
+      self.FrogCollidedWith.Coordinates['x'] = frogsNewXCoordinate
 
   @property
   def FrogCollidedWith(self):
