@@ -32,8 +32,11 @@ class GameEngine(object):
     self.gameWidth  = intDisplayWidth;
     self.gameHeight = intDisplayHeight;
 
+    # a List containing all the safe frogs
+    self.safeFrogs = []
+
     # Cheat sequence 
-    self.cheatCharInput = [];
+    self.cheatCharInput = []
     
     # Init the main display engine
     self.engDisplay = DisplayEngine(
@@ -136,7 +139,7 @@ class GameEngine(object):
     entSafeZoneA.setGameScreen(self.DisplayEngine)
     listSafeZones.append(entSafeZoneA)
 
-    SAFE_ZONEB_LOCATION   = [151,30]
+    SAFE_ZONEB_LOCATION   = [150,30]
     SAFE_ZONEB_DIMENSIONS = [60, 30]
     entSafeZoneB          = SafeZoneEntity(SAFE_ZONEB_LOCATION, SAFE_ZONEB_DIMENSIONS, COLOR_WHITE)
     entSafeZoneB.setGameScreen(self.DisplayEngine)
@@ -148,7 +151,7 @@ class GameEngine(object):
     entSafeZoneC.setGameScreen(self.DisplayEngine)
     listSafeZones.append(entSafeZoneC)
 
-    SAFE_ZONED_LOCATION   = [435,30]
+    SAFE_ZONED_LOCATION   = [430,30]
     SAFE_ZONED_DIMENSIONS = [52, 30]
     entSafeZoneD          = SafeZoneEntity(SAFE_ZONED_LOCATION, SAFE_ZONED_DIMENSIONS, COLOR_WHITE)
     entSafeZoneD.setGameScreen(self.DisplayEngine)
@@ -246,6 +249,7 @@ class GameEngine(object):
     # if we find a collision then update the coordinates of the controlled entity
     # before it gets drawn to the display
     self.CollisionEngine.checkForAndHandleCollisions()
+
     if self.entLifeCounter.Lives == 0:
       GameOverText = Text(FONT_BLOX, "GAME OVER", COLOR_FROG_RED, 60)
       GameOverText.setGameScreen(self.DisplayEngine.Surface)
@@ -258,6 +262,17 @@ class GameEngine(object):
       GameOverText3 = Text(FONT_BLOX, "Press N for a New Game", COLOR_FROG_RED, 30)
       GameOverText3.setGameScreen(self.DisplayEngine.Surface)
       GameOverText3.draw((self.gameWidth / 2 - 150, self.gameHeight / 2 + 120))
+
+      self.freezeState = True # Flag to freeze the display
+    
+    if len(self.safeFrogs) == 4:
+      VictoryText = Text(FONT_BLOX, "YOU WIN", COLOR_FROG_RED, 60)
+      VictoryText.setGameScreen(self.DisplayEngine.Surface)
+      VictoryText.draw((self.gameWidth / 2 - 120, self.gameHeight / 2))
+
+      VictoryText2 = Text(FONT_BLOX, "Press N for a New Game", COLOR_WHITE, 30)
+      VictoryText2.setGameScreen(self.DisplayEngine.Surface)
+      VictoryText2.draw((self.gameWidth / 2 - 150, self.gameHeight / 2 + 80))
 
       self.freezeState = True # Flag to freeze the display
 
@@ -293,9 +308,18 @@ class GameEngine(object):
 
   def reset(self):
     if self.freezeState == True:
-      self.entLifeCounter.add(3)
+      self.entLifeCounter.set(3)
       self.entLifeCounter.Text.setText(self.entLifeCounter.Lives)
       self.freezeState = False
+      self.DisplayEngine.PlayerDisplayLayers.empty()
+      
+      defaultEntityFactory = EntityFactory(self.DisplayEngine)
+      entNewFrog = defaultEntityFactory.buildFrog() 
+      entNewFrog.draw()
+      self.DisplayEngine.addUserControlledLayer(entNewFrog)
+      self.CollisionEngine.setControlledEntity(entNewFrog)
+
+      self.safeFrogs = []
 
   @property
   def DisplayEngine(self):

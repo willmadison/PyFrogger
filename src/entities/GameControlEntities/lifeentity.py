@@ -12,6 +12,9 @@ class LifeEntity(BaseEntity):
 
   def add(self, intLife=1):
     return self._modify(intLife)
+  
+  def set(self, intLife=1):
+    self.intLifeCounter = intLife
 
   def _modify(self, intLife):
     self.intLifeCounter += intLife

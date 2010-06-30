@@ -13,6 +13,9 @@ class DisplayEngine(object):
       # Create the display layers that we will need
       self.DisplayLayers = pygame.sprite.LayeredDirty()
 
+      # Create a layer for maintaining player sprite groups
+      self.PlayerDisplayLayers = pygame.sprite.LayeredDirty()
+
       # Create a list to hold all of the entities so we can execute their respond methods
       self.DisplayEntities = []
 
@@ -44,7 +47,7 @@ class DisplayEngine(object):
 
   def addUserControlledLayer(self, entLayer):
     groupLayer = pygame.sprite.Group(entLayer)
-    self.DisplayLayers.add(groupLayer)
+    self.PlayerDisplayLayers.add(groupLayer)
     self.ControlledEntities.append(entLayer)
 
   def addGameController(self, controller):
@@ -69,6 +72,7 @@ class DisplayEngine(object):
     """
     if self.States['freeze'] == False:
       self.DisplayLayers.update()
+      self.PlayerDisplayLayers.update()
       self.animate()
 
     self.respond()
