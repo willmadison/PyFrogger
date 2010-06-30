@@ -105,7 +105,7 @@ class GameEngine(object):
     listHazardZones         = []
     LARGE_HAZARD_LOCATION   = [18, 65]
     LARGE_HAZARD_DIMENSIONS = [464, 95]
-    entLargeHazardZone      = HazardEntity(LARGE_HAZARD_LOCATION, LARGE_HAZARD_DIMENSIONS, COLOR_NAVY_BLUE)
+    entLargeHazardZone      = HazardEntity(LARGE_HAZARD_LOCATION, LARGE_HAZARD_DIMENSIONS, COLOR_FROG_RED)
     entLargeHazardZone.setGameScreen(self.DisplayEngine)
     listHazardZones.append(entLargeHazardZone)
     

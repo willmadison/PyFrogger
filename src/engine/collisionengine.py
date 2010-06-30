@@ -7,13 +7,14 @@ import sys, pygame
 class CollisionEngine(object):
 
   def __init__(self):
-    self.collisionEntities  = pygame.sprite.Group()
+    #self.collisionEntities  = pygame.sprite.Group()
+    self.collisionEntities = []
 
   def setControlledEntity(self, entity):
     self.controlledEntity = entity
 
   def addCollisionEntity(self, entity):
-    self.collisionEntities.add(entity)
+    self.collisionEntities.append(entity)
 
   def setPlayerLifeCounter(self, playerLifeCounter):
     self.playerLifeCounter  = playerLifeCounter
@@ -46,8 +47,9 @@ class CollisionEngine(object):
           break
 
   def checkForCollisions(self):
-    listCollision = pygame.sprite.spritecollide(self.controlledEntity, self.collisionEntities, False)
+    #listCollision = pygame.sprite.spritecollide(self.controlledEntity, self.collisionEntities, False)
+    for collisionEntity in self.collisionEntities:
+      if pygame.sprite.collide_rect(self.controlledEntity, collisionEntity) == True:
+        return [collisionEntity] 
+    return [] 
     
-    print listCollision
-    
-    return listCollision
