@@ -1,3 +1,5 @@
+from random import randint
+
 # Generic Color Constants
 COLOR_BLACK       = (0, 0, 0)
 COLOR_GREEN       = (0, 255, 0)
@@ -14,3 +16,6 @@ COLOR_BACKGROUND_GREEN  = (79, 116, 32)
 COLOR_NAVY_BLUE         = (29, 41, 90)
 COLOR_PALE_YELLOW       = (255, 244, 86)
 COLOR_KEY               = (255, 0, 255)
+
+def generateRandomColor():
+  return (randint(1, 255), randint(1, 255), randint(1,255)) 

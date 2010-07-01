@@ -21,7 +21,7 @@ class GameController(BaseController):
     self.gameEngine = gameEngine
 
     self.dictKeyActionMap = {
-                             K_ESCAPE : self.quit,
+                             K_ESCAPE : self.gameEngine.quit,
                              K_n      : self.reset,
                              K_p      : self.lifeCheat,
                              K_y      : self.lifeCheat,
@@ -57,7 +57,7 @@ class GameController(BaseController):
     
     elif eventFired.type == QUIT:
       self.quit()
-
+	  
   def reset(self, keyPress):
     return self.GameEngine.reset()
 

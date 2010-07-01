@@ -13,4 +13,3 @@ if __name__ == "__main__":
   while Frogger.running == True:
     Frogger.run()
 
-  Frogger.quit()

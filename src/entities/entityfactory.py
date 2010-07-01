@@ -4,12 +4,13 @@ Created on Dec 21, 2009
 @author: William Madison
 '''
 
+from src.entities.AnimatedEntities.carentity     import CarEntity
+from src.controllers.animated.carcontroller      import CarController
 from src.entities.ControlledEntities.frogentity  import FrogEntity
+from src.controllers.frogcontroller              import FrogController
 from src.entities.GameControlEntities.lifeentity import LifeEntity
 from src.entities.StaticEntities.staticentity    import StaticEntity
-from src.controllers.frogcontroller              import FrogController
 from src.core.colors                             import * #@UnusedWildImport
-
 
 class EntityFactory(object):
   
@@ -49,6 +50,24 @@ class EntityFactory(object):
     # Return the newly created frog.
     
     return entFrog
+
+  def buildCar(self, startingLocation, initialVelocity=2, color=(255, 255, 255)):
+    '''
+      Construct a animated car entity
+    '''
+    entCar = CarEntity(startingLocation, initialVelocity)
+
+    entCar.setColor(color)
+
+    contCarAnimation = CarController(entCar)
+    entCar.setController(contCarAnimation)
+
+    # Set its reference to the game screen
+    entCar.setGameScreen(self.displayEngine)
+
+    return entCar
+
+
   
   def buildBackground(self):
     '''

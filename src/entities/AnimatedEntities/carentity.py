@@ -1,4 +1,5 @@
 from src.entities.baseentity import BaseEntity
+from src.core.colors         import *
 import pygame
 
 class CarEntity(BaseEntity):
@@ -23,10 +24,13 @@ class CarEntity(BaseEntity):
       'y' : coordinates[1]
     }
 
+    # Set the default color for the pixels on this entity
+    self.color = (255, 255, 255)
+
     # Define this entities surface
     self.surfEntity = pygame.Surface((self.Dimensions['width'], self.Dimensions['height'])).convert()
     self.rect = self.surfEntity.get_rect(left=self.coordinates['x'], top=self.coordinates['y'])
-    self.setColorKey()
+    self.setColorKey(COLOR_KEY)
     self.draw()
 
   def setGameScreen(self, engDisplay):
@@ -43,6 +47,10 @@ class CarEntity(BaseEntity):
     """ Animation Handler """
     return self.myController.animate()
 
+  def setColor(self, color):
+    self.color = color
+    self.draw()
+
   def setColorKey(self, color=(255,255,255)):
     """ Create a color key to make transparent """
     self.Surface.fill(color)
@@ -52,7 +60,7 @@ class CarEntity(BaseEntity):
     """ Create the graphic for the car entity (r, g, b) (x, y, width, height) """
 
     # Tuple representing the base color of the car
-    tupCarBodyColor = (150, 20, 255)
+    tupCarBodyColor = self.color
     tupBlackColor   = (0, 0, 0)
 
     # Main Car Body
@@ -78,8 +86,8 @@ class CarEntity(BaseEntity):
   def update(self):
     """ Update the coordinates for this entity """
     self.rect.move_ip(self.Coordinates['x'], self.Coordinates['y'])
-    self.rect.top = self.Coordinates['y']
-    self.rect.left = self.Coordinates['x']
+    self.rect.top   = self.Coordinates['y']
+    self.rect.left  = self.Coordinates['x']
     self.GameSurface.blit(self.Surface, (self.Coordinates['x'], self.Coordinates['y']))
 
   @property

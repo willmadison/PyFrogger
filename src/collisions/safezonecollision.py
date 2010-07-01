@@ -19,8 +19,6 @@ class SafeZoneCollision(BaseCollision):
       means of handling a collision of between a SafeZone and a Frog.
     '''
 
-    defaultEntityFactory = EntityFactory(self.gameEngine.DisplayEngine)
-
     if self.safeZoneCollidedWith.IsOccupied :
       self.PlayerLifeCounter.remove()
       self.PlayerLifeCounter.Text.setText(self.playerLifeCounter.Lives)
@@ -30,14 +28,14 @@ class SafeZoneCollision(BaseCollision):
       self.safeZoneCollidedWith.markOccupied()
       defaultEntityFactory = EntityFactory(self.gameEngine.engDisplay)
 
-    self.gameEngine.safeFrogs.append(self.frogCollidedWith)
+      self.gameEngine.safeFrogs.append(self.frogCollidedWith)
 
-    # Unhook the controller from the Frog that landed safely.
-    self.frogCollidedWith.setController(None)
-    entNewFrog = defaultEntityFactory.buildFrog() 
-    entNewFrog.draw()
-    self.gameEngine.DisplayEngine.addUserControlledLayer(entNewFrog)
-    self.gameEngine.CollisionEngine.setControlledEntity(entNewFrog)
+      # Unhook the controller from the Frog that landed safely.
+      self.frogCollidedWith.setController(None)
+      entNewFrog = defaultEntityFactory.buildFrog() 
+      entNewFrog.draw()
+      self.gameEngine.DisplayEngine.addUserControlledLayer(entNewFrog)
+      self.gameEngine.CollisionEngine.setControlledEntity(entNewFrog)
 
   @property
   def FrogCollidedWith(self):
