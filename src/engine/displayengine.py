@@ -10,6 +10,8 @@ class DisplayEngine(object):
     try:
       pygame.init()
 
+      pygame.display.set_caption('PyFrogger')
+
       # Create the display layers that we will need
       self.DisplayLayers = pygame.sprite.LayeredDirty()
 
