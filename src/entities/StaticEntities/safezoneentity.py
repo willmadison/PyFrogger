@@ -78,6 +78,9 @@ class SafeZoneEntity(BaseEntity):
 
   def markOccupied(self):
     self.isOccupied = True 
+    
+  def markUnoccupied(self):
+    self.isOccupied = False 
 
   @property
   def Coordinates(self):

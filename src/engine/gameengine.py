@@ -232,7 +232,7 @@ class GameEngine(object):
     """
       Constantly render updates to the surface
     """
-    # if we find a collision then update the coordinates of the controlled entity
+    # If we find a collision then update the coordinates of the controlled entity
     # before it gets drawn to the display
     self.CollisionEngine.checkForAndHandleCollisions()
 
@@ -306,8 +306,12 @@ class GameEngine(object):
     if self.freezeState == True:
       self.entLifeCounter.set(3)
       self.entLifeCounter.Text.setText(self.entLifeCounter.Lives)
+
       self.freezeState = False
       self.DisplayEngine.PlayerDisplayLayers.empty()
+
+      for safeZone in self.listSafeZones:
+        safeZone.markUnoccupied()
       
       defaultEntityFactory = EntityFactory(self.DisplayEngine)
       entNewFrog = defaultEntityFactory.buildFrog() 
@@ -324,8 +328,3 @@ class GameEngine(object):
   @property
   def CollisionEngine(self):
     return self.engCollision
-
-
-
-
-
