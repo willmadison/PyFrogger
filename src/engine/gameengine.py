@@ -247,7 +247,7 @@ class GameEngine(object):
     # Freezes the Display
     self.DisplayEngine.setFreezeState(self.freezeState)
     
-  def quit(self, keyPress):
+  def quit(self):
     self.running = False
 
   def gameOver(self):
